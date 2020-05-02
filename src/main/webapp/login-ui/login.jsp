@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
           integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="css/loginPage.css">
+    <link rel="stylesheet" href="css/login.css">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
             integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
             crossorigin="anonymous"></script>
@@ -32,29 +32,32 @@
           href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha14/css/tempusdominus-bootstrap-4.min.css"/>
     <title>Anmelden</title>
     <script src="js/login.js"></script>
-
+    <script src="https://kit.fontawesome.com/258052aeff.js"
+            crossorigin="anonymous"></script>
 
 
 </head>
 
 <body>
 
-
-<c:if test="${not empty error}">
-    <div class="alert alert-danger">
-        <p>You have entered an invalid email or password</p>
-        <br/>
-    </div>
-</c:if>
-
-<c:if test="${not empty success}">
-    <div class="alert alert-success">
-        <p>You have registered successfully</p>
-        <br/>
-    </div>
-</c:if>
-
 <div class="container mt-2 mb-4">
+    <c:if test="${not empty error}">
+        <div class="alert alert-danger alert-dismissible" role="alert">
+            <button type="button" onclick="this.parentNode.parentNode.removeChild(this.parentNode);" class="close" data-dismiss="alert"><span aria-hidden="true">x</span><span class="sr-only">Close</span></button>
+            <strong><i class="fa fa-warning"></i> Fehler!</strong> <p id="alert" style="font-family: sans-serif; ">Sie haben falsche Email oder falsches Passwort eingegeben!</p>
+        </div>
+    </c:if>
+</div>
+<div class="container mt-2 mb-4">
+    <c:if test="${not empty success}">
+        <div class="alert alert-success alert-dismissible" role="alert">
+            <button type="button" onclick="this.parentNode.parentNode.removeChild(this.parentNode);" class="close" data-dismiss="alert"><span aria-hidden="true">x</span><span class="sr-only">Close</span></button>
+            <strong><i class="fa fa-success"></i> Erfolgreich!</strong> <p id="alert2" style="font-family: sans-serif; ">Sie haben sich erfolgreich registriert</p>
+        </div>
+    </c:if>
+</div>
+
+<div class="container mt-2 mb-4" >
     <div class="col-sm-8 ml-auto mr-auto">
         <ul class="nav nav-pills nav-fill mb-1" id="pills-tab" role="tablist">
             <li class="nav-item"><a class="nav-link active" id="pills-signin-tab" data-toggle="pill"
@@ -63,9 +66,9 @@
             <li class="nav-item"><a class="nav-link" id="pills-signup-tab" data-toggle="pill" href="#pills-signup"
                                     role="tab" aria-controls="pills-signup" aria-selected="false">Registrieren</a></li>
         </ul>
-        <div class="tab-content" id="pills-tabContent">
+        <div class="tab-content" id="pills-tabContent" >
             <div class="tab-pane fade show active" id="pills-signin" role="tabpanel" aria-labelledby="pills-signin-tab">
-                <div class="col-sm-12 border border-primary shadow rounded pt-2">
+                <div class="col-sm-12 border  shadow rounded pt-2" >
                     <div class="text-center"><img src="../img/logo.png" class="rounded-circle border p-1"></div>
 
                     <form action="/doLogin" method="post">
@@ -82,7 +85,7 @@
                         <div class="form-group">
                             <div class="row">
                                 <div class="col">
-                                    <div class="custom-control custom-checkbox">
+                                    <div class="custom-control custom-checkbox " >
                                         <input type="checkbox" class="custom-control-input" id="remember-button">
                                         <label class="custom-control-label" for="remember-button">Erinnere mich</label>
                                     </div>
@@ -101,7 +104,7 @@
 
 
             <div class="tab-pane fade" id="pills-signup" role="tabpanel" aria-labelledby="pills-signup-tab">
-                <div class="col-sm-12 border border-primary shadow rounded pt-2">
+                <div class="col-sm-12 border  shadow rounded pt-2">
                     <div class="text-center"><img src="../img/logo.png" class="rounded-circle border p-1"></div>
 
                     <form action="/addUser">
@@ -223,4 +226,3 @@
 </body>
 
 </html>
-

@@ -93,4 +93,38 @@ a:active {
 
 .alert {
     text-align: center;
+    margin-right: 200px;
+    margin-left: 200px;
+    border-style: ridge;
+    height: 70px;
+}
+/* Small devices (landscape phones, 544px and up) */
+@media (min-width: 360px) {
+    .alert {
+        text-align: center;
+        margin-right: 50px;
+        margin-left:50px;
+        border-style: ridge;
+
+
+    }
+    #alert{
+
+        font-size: 10pt;
+        margin: 10px;
+    }
+
+    #alert2{
+
+        font-size: 10pt;
+        margin: 10px;
+    }
+
+    #datetimepicker4{
+        width: 100%;
+    }
+
+
+
+
 }
