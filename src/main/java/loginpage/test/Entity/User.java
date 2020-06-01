@@ -1,5 +1,6 @@
 package loginpage.test.Entity;
 
+import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
@@ -40,6 +41,12 @@ public class User  implements Serializable {
 
     @Column(name = "beschreibung")
     private String beschreibung;
+
+    @Column(name = "blocked")
+    private int blocked;
+
+    @Column(name = "deleted")
+    private int deleted;
 
     @Lob
     @Column(name="photo")
@@ -137,6 +144,22 @@ public class User  implements Serializable {
 
     public void setGeschlecht(String geschlecht) {
         this.geschlecht = geschlecht;
+    }
+
+    public int getBlocked() {
+        return blocked;
+    }
+
+    public void setBlocked(int blocked) {
+        this.blocked = blocked;
+    }
+
+    public int getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(int deleted) {
+        this.deleted = deleted;
     }
 }
 

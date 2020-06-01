@@ -72,7 +72,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
                 .and()
 
-                .formLogin().loginPage("/login.jsp").usernameParameter("username").passwordParameter("password").permitAll()
+                .formLogin().loginPage("/login").usernameParameter("username").passwordParameter("password").permitAll()
 
                 .loginProcessingUrl("/doLogin")
 

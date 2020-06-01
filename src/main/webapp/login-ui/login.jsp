@@ -13,8 +13,9 @@
           integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/login.css">
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    <script
+            src="https://code.jquery.com/jquery-3.5.1.min.js"
+            integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
             crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
             integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
@@ -43,21 +44,37 @@
 <div class="container mt-2 mb-4">
     <c:if test="${not empty error}">
         <div class="alert alert-danger alert-dismissible" role="alert">
-            <button type="button" onclick="this.parentNode.parentNode.removeChild(this.parentNode);" class="close" data-dismiss="alert"><span aria-hidden="true">x</span><span class="sr-only">Close</span></button>
-            <strong><i class="fa fa-warning"></i> Fehler!</strong> <p id="alert" style="font-family: sans-serif; ">Sie haben falsche Email oder falsches Passwort eingegeben!</p>
+            <button type="button" onclick="this.parentNode.parentNode.removeChild(this.parentNode);" class="close"
+                    data-dismiss="alert"><span aria-hidden="true">x</span><span class="sr-only">Close</span></button>
+            <strong><i class="fa fa-warning"></i> Fehler!</strong>
+            <p id="alert" style="font-family: sans-serif; ">Sie haben falsche Email oder falsches Passwort
+                eingegeben!</p>
         </div>
     </c:if>
 </div>
 <div class="container mt-2 mb-4">
     <c:if test="${not empty success}">
         <div class="alert alert-success alert-dismissible" role="alert">
-            <button type="button" onclick="this.parentNode.parentNode.removeChild(this.parentNode);" class="close" data-dismiss="alert"><span aria-hidden="true">x</span><span class="sr-only">Close</span></button>
-            <strong><i class="fa fa-success"></i> Erfolgreich!</strong> <p id="alert2" style="font-family: sans-serif; ">Sie haben sich erfolgreich registriert</p>
+            <button type="button" onclick="this.parentNode.parentNode.removeChild(this.parentNode);" class="close"
+                    data-dismiss="alert"><span aria-hidden="true">x</span><span class="sr-only">Close</span></button>
+            <strong><i class="fa fa-success"></i> Erfolgreich!</strong>
+            <p id="alert2" style="font-family: sans-serif; ">Sie haben sich erfolgreich registriert</p>
         </div>
     </c:if>
 </div>
 
-<div class="container mt-2 mb-4" >
+<div class="container mt-2 mb-4">
+    <c:if test="${not empty blocked}">
+        <div class="alert alert-danger alert-dismissible" role="alert">
+            <button type="button" onclick="this.parentNode.parentNode.removeChild(this.parentNode);" class="close"
+                    data-dismiss="alert"><span aria-hidden="true">x</span><span class="sr-only">Close</span></button>
+            <strong><i class="fa fa-success"></i> Blockiert!</strong>
+            <p id="alert3" style="font-family: sans-serif; ">Ihr konto wurde von uns blockiert. Kontaktieren Sie bitte uns fuer mehr Informationen <a style="color: red; background-color: #f8d7da; text-decoration: underline" href="/kontaktiereUns"> Kontakt</a> </p>
+        </div>
+    </c:if>
+</div>
+
+<div class="container mt-2 mb-4">
     <div class="col-sm-8 ml-auto mr-auto">
         <ul class="nav nav-pills nav-fill mb-1" id="pills-tab" role="tablist">
             <li class="nav-item"><a class="nav-link active" id="pills-signin-tab" data-toggle="pill"
@@ -66,9 +83,9 @@
             <li class="nav-item"><a class="nav-link" id="pills-signup-tab" data-toggle="pill" href="#pills-signup"
                                     role="tab" aria-controls="pills-signup" aria-selected="false">Registrieren</a></li>
         </ul>
-        <div class="tab-content" id="pills-tabContent" >
+        <div class="tab-content" id="pills-tabContent">
             <div class="tab-pane fade show active" id="pills-signin" role="tabpanel" aria-labelledby="pills-signin-tab">
-                <div class="col-sm-12 border  shadow rounded pt-2" >
+                <div class="col-sm-12 border  shadow rounded pt-2">
                     <div class="text-center"><img src="../img/logo.png" class="rounded-circle border p-1"></div>
 
                     <form action="/doLogin" method="post">
@@ -85,7 +102,7 @@
                         <div class="form-group">
                             <div class="row">
                                 <div class="col">
-                                    <div class="custom-control custom-checkbox " >
+                                    <div class="custom-control custom-checkbox ">
                                         <input type="checkbox" class="custom-control-input" id="remember-button">
                                         <label class="custom-control-label" for="remember-button">Erinnere mich</label>
                                     </div>
@@ -107,7 +124,7 @@
                 <div class="col-sm-12 border  shadow rounded pt-2">
                     <div class="text-center"><img src="../img/logo.png" class="rounded-circle border p-1"></div>
 
-                    <form action="/addUser">
+                    <form id="registration-form" action="/addUser">
 
                         <div class="form-group">
                             <label class="font-weight-bold">Vorname <span class="text-danger">*</span></label>
@@ -125,23 +142,22 @@
                             <input type="email" name="email" id="signupemail" class="form-control"
                                    placeholder="Geben Sie eine gueltige Email-Adresse ein" required>
                         </div>
-                        <p style="display: none" id="emailWarning">This email is already registered</p>
+                        <p style="display: none; color: red" id="emailWarning">Diese E-Mail wurde schon verwendet!</p>
 
                         <div class="form-group">
                             <label class="font-weight-bold">Passwort <span class="text-danger">*</span></label>
                             <input type="password" name="passwort1" id="signuppassword" class="form-control"
-                                   placeholder="Geben Sie Passwort ein" pattern="^\S{6,}$"
-                                   onchange="this.setCustomValidity(this.validity.patternMismatch ? 'Mindestens 6 Zeichen' : ''); if(this.checkValidity()) form.password_two.pattern = this.value;"
-                                   required>
+                                   placeholder="Geben Sie Passwort ein" pattern="^\S{6,}$" required>
                         </div>
                         <div class="form-group">
                             <label class="font-weight-bold">Passwort wiederholen <span
                                     class="text-danger">*</span></label>
-                            <input type="password" name="passwort2" id="signupcpassword" class="form-control"
+                            <input onblur="confirmPass()" type="password" name="passwort2" id="signupcpassword" class="form-control"
                                    pattern="^\S{6,}$"
-                                   onchange="this.setCustomValidity(this.validity.patternMismatch ? 'Das Passwort stimmt nicht überein' : '');"
                                    placeholder="Wiederholen Sie das Passwort" required>
                         </div>
+                        <p style="display: none; color: red" id="passwortWarning">Die Passwoerter stimmen nicht ueberein!</p>
+
 
                         <div class="form-group">
                             <label class="font-weight-bold">Geburtsdatum <span class="text-danger">*</span></label>
@@ -177,7 +193,7 @@
                         </div>
 
                         <div class="form-group">
-                            <input type="submit" name="signupsubmit" value="Registrieren"
+                            <input type="button" onclick="checkEmailExist(); confirmPass()" name="signupsubmit" value="Registrieren"
                                    class="save btn btn-block btn-primary">
                         </div>
                     </form>
@@ -186,7 +202,6 @@
         </div>
 
     </div>
-
 
     <!-- Modal -->
     <div class="modal fade" id="forgotPass" tabindex="-1" role="dialog" aria-hidden="true">
@@ -210,7 +225,8 @@
                     </div>
                     <div class="modal-footer">
 
-                        <button type="submit" name="forgotPass" class="btn btn-primary"><i class="fa fa-envelope"></i>Anfrage senden
+                        <button type="submit" name="forgotPass" class="btn btn-primary"><i class="fa fa-envelope"></i>
+                            Anfrage senden
                         </button>
                     </div>
                 </div>
@@ -221,6 +237,58 @@
 
 
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
+<script>
+
+    function checkEmailExist() {
+        var email = document.getElementById('signupemail').value;
+        $.ajax
+        (
+            {
+                url: '/checkEmail',
+                data: {"email": email},
+                type: 'post',
+                cache: false,
+                success: function (data) {
+                    if (data === "Email is not available") {
+                        $('#emailWarning').css("display", "block");
+                        $('#save').attr("disabled", "disabled");
+                        return false;
+                    } else if (data === "Email is available") {
+                        $('#emailWarning').css("display", "none");
+                        $('#save').removeAttr("disabled");
+                        $("#registration-form").submit();
+                        return true;
+                    }
+                },
+                error: function () {
+                    alert('error');
+                }
+            }
+        );
+    }
+
+    function confirmPass() {
+        var pass = document.getElementById("signuppassword").value;
+        var confPass = document.getElementById("signupcpassword").value;
+        if(pass !== confPass) {
+            $("#passwortWarning").css("display", "block");
+            return false;
+        } else {
+            $("#passwortWarning").css("display", "none");
+            return true;
+        }
+    }
+
+    function validateForm() {
+        var valid = true;
+        valid = valid && confirmPass();
+        return valid;
+    }
+
+    $('#registration-form').submit(validateForm);
+
+</script>
 
 
 </body>

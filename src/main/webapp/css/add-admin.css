@@ -73,6 +73,14 @@ a:active {
     height: 45px;
 }
 
+a {
+    color: #00a1b2;
+
+}
+
+a:hover {
+    text-decoration: none;
+}
 
 #datetimepicker4 {
     width: 680px;
@@ -109,12 +117,6 @@ a:active {
 
     }
     #alert{
-
-        font-size: 10pt;
-        margin: 10px;
-    }
-
-    #alert2{
 
         font-size: 10pt;
         margin: 10px;

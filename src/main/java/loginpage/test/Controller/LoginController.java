@@ -2,22 +2,16 @@ package loginpage.test.Controller;
 
 import loginpage.test.DAO.RoleRepo;
 import loginpage.test.DAO.UserRepo;
-import loginpage.test.Entity.User;
 import loginpage.test.Security.PdfUserDetails;
 import loginpage.test.Service.EmailService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 
@@ -55,10 +49,19 @@ public class LoginController {
         return "login-ui/login.jsp";
     }
 
+
     @RequestMapping(value = "/success", method = RequestMethod.GET)
     public String registrationOnSuccess(Model model) {
 
         model.addAttribute("success", "true");
+
+        return "login-ui/login.jsp";
+    }
+
+    @RequestMapping(value = "/blocked", method = RequestMethod.GET)
+    public String blockedUserOnLogin(Model model) {
+
+        model.addAttribute("blocked", "true");
 
         return "login-ui/login.jsp";
     }
@@ -77,7 +80,6 @@ public class LoginController {
     @RequestMapping(value = "/postLogin", method = RequestMethod.POST)
     public String postLogin(Model model, HttpSession session, HttpServletRequest request) {
         log.info("postLogin()");
-        // read principal out of security context and set it to session
         UsernamePasswordAuthenticationToken authentication = (UsernamePasswordAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
         validatePrinciple(authentication.getPrincipal());
         loginpage.test.Entity.User loggedInUser = ((PdfUserDetails) authentication.getPrincipal()).getUserDetails();
@@ -91,13 +93,21 @@ public class LoginController {
         id = loggedInUser.getUid();
 
 
-        if (loggedInUser.getRoles().toString().contains("ROLE_ADMIN")) {
+        if (loggedInUser.getBlocked() == 1) {
 
-            return "redirect:/userDetails?uid=" + loggedInUser.getUid();
+            return "redirect:/blocked";
+        } else {
+            if (loggedInUser.getDeleted() == 1) {
+
+                return "redirect:loginFailed";
+            } else if (loggedInUser.getRoles().toString().contains("ROLE_USER")) {
+
+                return "redirect:/profile?uid=" + loggedInUser.getUid();
+
+            } else {
+                return "redirect:/admin-menu";
+            }
         }
-
-        return "redirect:/user-ui/user-menu.jsp";
-
     }
 
     private void validatePrinciple(Object principal) {
@@ -109,4 +119,3 @@ public class LoginController {
         }
     }
 }
-

@@ -1,0 +1,191 @@
+body {
+    font-family: jaf-bernina-sans, sans-serif;
+    font-style: normal;
+    font-weight: 300;
+}
+
+.row-padding {
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+.container {
+    margin-top: 20px;
+}
+
+.breadcrumb {
+    background-color: white;
+}
+
+#home {
+    font-size: 16px;
+    color: #00a1b2;
+    cursor: pointer;
+}
+
+#home:hover {
+    text-decoration: none;
+    color: #00848e;
+}
+
+a {
+    color: #00a1b2;
+}
+
+p#username {
+    font-size: 16px;
+    height: 24px;
+    text-align: center;
+}
+
+a:hover {
+    color: #00a1b2;
+}
+
+.form-control {
+    height: 40px;
+    margin-bottom: 3%;
+    margin-left: 108%;
+}
+
+.edit {
+    color: #00a1b2;
+    border-color: white;
+    background-color: white;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+}
+
+.edit:hover {
+    color: #00a1b2;
+    background-color: white;
+    border-color: white;
+}
+
+.block {
+    margin-left: 25px;
+    color: #00a1b2;
+    border-color: white;
+    background-color: white;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+}
+
+.block:hover {
+    color: #00a1b2;
+    background-color: white;
+    border-color: white;
+}
+
+.contact {
+    color: #00a1b2;
+    margin-left: 25px;
+    border-color: white;
+    background-color: white;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+}
+
+.contact:hover {
+    color: #00a1b2;
+    background-color: white;
+    border-color: white;
+}
+
+.environments {
+    color: #00a1b2;
+    border-color: #00a1b2;
+    background-color: #FFFFFF;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+}
+
+.environments:hover {
+    background-color: #f8f8f8;
+    color: #00a1b2;
+    border-color: #00a1b2;
+}
+
+.custom-select {
+    font-size: 1.5rem;
+}
+
+.scope-select-tag {
+    cursor: pointer;
+    margin-left: 0;
+    width: 59%;
+}
+
+table.dataTable.display tbody tr.odd, table.dataTable.display tbody tr.even {
+    background-color: white;
+}
+
+table.dataTable.display tbody tr.odd > .sorting_1, table.dataTable.display tbody tr.even > .sorting_1 {
+    background-color: white;
+}
+
+.loader {
+    display: none;
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+}
+
+.loading {
+    border: 2px solid #ccc;
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    border-top-color: #00A1B2;
+    border-left-color: #00a1b2;
+    animation: spin 1s infinite ease-in;
+}
+
+#loading {
+    margin-top: 15px;
+    font-size: 25px;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@media (min-width: 2000px) {
+
+    .loading {
+        width: 120px;
+        height: 120px;
+    }
+}
+
+#addAdminBtn {
+    background-color: white;
+    color: #00A1B2;
+    border-color: #00A1B2;
+    width: 180px;
+    height: 41px;
+    font-size: 18px;
+    text-align: center;
+    margin-left: 120px;
+}
+
+#addAdminBtn:hover {
+    background-color: #f8f8f8;
+    border-color: #00A1B2;
+    color: #00A1B2;
+}
+
+#tableDiv {
+    margin-top: -30px;
+}
