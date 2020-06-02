@@ -1,6 +1,5 @@
 package loginpage.test.Entity;
 
-import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
@@ -8,7 +7,6 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
-
 
 @NoArgsConstructor
 @Entity
@@ -47,6 +45,18 @@ public class User  implements Serializable {
 
     @Column(name = "deleted")
     private int deleted;
+
+    @Column(name = "beziehungsstatus")
+    private String beziehungsstatus;
+
+    @Column(name = "wohnort")
+    private String wohnort;
+
+    @Column(name = "visited")
+    private int visited;
+
+    @Column(name = "beigetreten")
+    private Date beigetreten;
 
     @Lob
     @Column(name="photo")
@@ -161,11 +171,36 @@ public class User  implements Serializable {
     public void setDeleted(int deleted) {
         this.deleted = deleted;
     }
+
+    public String getBeziehungsstatus() {
+        return beziehungsstatus;
+    }
+
+    public void setBeziehungsstatus(String beziehungsstatus) {
+        this.beziehungsstatus = beziehungsstatus;
+    }
+
+    public String getWohnort() {
+        return wohnort;
+    }
+
+    public void setWohnort(String wohnort) {
+        this.wohnort = wohnort;
+    }
+
+    public int getVisited() {
+        return visited;
+    }
+
+    public void setVisited(int visited) {
+        this.visited = visited;
+    }
+
+    public Date getBeigetreten() {
+        return beigetreten;
+    }
+
+    public void setBeigetreten(Date beigetreten) {
+        this.beigetreten = beigetreten;
+    }
 }
-
-
-
-
-
-
-

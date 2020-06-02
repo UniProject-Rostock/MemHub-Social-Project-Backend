@@ -5,7 +5,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+    <link rel="shortcut icon" type="image/png" href="img/logo.png">
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -17,48 +17,58 @@
     <link rel="stylesheet" type="text/css" href="css/user-profile.css">
     <script src="https://kit.fontawesome.com/258052aeff.js"
             crossorigin="anonymous"></script>
-<style>
-    #ta1 ,#ta2 ,#ta3 {
+    <title>User profile</title>
+    <style>
+        #ta1, #ta2, #ta3 {
 
-        text-decoration:none;
-        position:relative;
-        transition: color 0.1s, background-color 0.1s;
-    }
-    #ta1::before ,#ta2::before,#ta3::before {
-        content: '';
-        display: block;
-        position: absolute;
-        bottom: 3px;
-        left: 0;
-        height: 3px;
-        width: 100%;
-        background-color: #00a1b2;
-        transform-origin: right top;
-        transform: scale(0, 1);
-        transition: color 0.1s,transform 0.2s ease-out;
-    }
-    #ta1:active::before, #ta2:active::before, #ta3:active::before {
-        background-color: #00a1b2;
-    }
-    #ta1:hover::before, #ta1:focus::before {
-        transform-origin: left top;
-        transform: scale(0.7, 1);
-        margin-left: 20px;
-        margin-right: 20px;
-    }
-    #ta2:hover::before, #ta2:focus::before {
-        transform-origin: left top;
-        transform: scale(0.8, 1);
-        margin-left: 20px;
-        margin-right: 20px;
-    }
-    #ta3:hover::before, #ta3:focus::before {
-        transform-origin: left top;
-        transform: scale(1.2, 1);
-        margin-left: 20px;
-        margin-right: 20px;
-    }
-</style>
+            text-decoration: none;
+            position: relative;
+            transition: color 0.1s, background-color 0.1s;
+        }
+
+        #ta1::before, #ta2::before, #ta3::before {
+            content: '';
+            display: block;
+            position: absolute;
+            bottom: 3px;
+            left: 0;
+            height: 3px;
+            width: 100%;
+            background-color: #00a1b2;
+            transform-origin: right top;
+            transform: scale(0, 1);
+            transition: color 0.1s, transform 0.2s ease-out;
+        }
+
+        #ta1:active::before, #ta2:active::before, #ta3:active::before {
+            background-color: #00a1b2;
+        }
+
+        #ta1:hover::before, #ta1:focus::before {
+            transform-origin: left top;
+            transform: scale(0.7, 1);
+            margin-left: 20px;
+            margin-right: 20px;
+        }
+
+        #ta2:hover::before, #ta2:focus::before {
+            transform-origin: left top;
+            transform: scale(0.8, 1);
+            margin-left: 20px;
+            margin-right: 20px;
+        }
+
+        #ta3:hover::before, #ta3:focus::before {
+            transform-origin: left top;
+            transform: scale(1.2, 1);
+            margin-left: 20px;
+            margin-right: 20px;
+        }
+
+        #saveBtn:hover {
+            background-color: #00848e;
+        }
+    </style>
 
     <title></title>
 </head>
@@ -81,7 +91,8 @@
                      aria-labelledby="navbarDropdownMenuLink">
                     <a class="dropdown-item waves-effect waves-light" href="#">Action</a>
                     <a class="dropdown-item waves-effect waves-light" href="#">Another action</a>
-                    <a class="dropdown-item waves-effect waves-light" href="/doLogout">Abmelden</a>
+                    <a class="dropdown-item waves-effect waves-light" href="/doLogout">Abmelden <i
+                            class="fas fa-sign-out-alt"></i></a>
                 </div>
             </li>
             <li class="nav-item">
@@ -112,11 +123,16 @@
                         <div class="col-lg-6 col-md-3 col-sm-3 hidden-xs">
                             <div class="pull-right">
                                 <div style="margin-top: 20px" class="dropdown">
-                                    <a style=" background-color: #00a1b2; color: white; margin-right: -110px;" data-toggle="dropdown"
-                                       class="dropdown-toggle btn-rounded btn  waves-effect waves-light" href="#"><i class="fas fa-camera"></i> Bild aktualisieren</a>
+                                    <a style=" background-color: #00a1b2; color: white; margin-right: -110px;"
+                                       data-toggle="dropdown"
+                                       class="dropdown-toggle btn-rounded btn  waves-effect waves-light" href="#"><i
+                                            class="fas fa-camera"></i> Bild aktualisieren</a>
                                     <ul class="dropdown-menu dropdown-menu-right" role="menu">
-                                        <li><a type="file" class="dropdown-item waves-effect waves-light" href="/changePhoto?uid=<%=request.getParameter("uid")%>">Bild aktualisieren</a></li>
-                                        <li><a class="dropdown-item waves-effect waves-light" href="#">Bild loeschen</a></li>
+                                        <li><a type="file" class="dropdown-item waves-effect waves-light"
+                                               href="/changePhoto?uid=<%=request.getParameter("uid")%>">Bild
+                                            aktualisieren</a></li>
+                                        <li><a class="dropdown-item waves-effect waves-light" href="#">Bild loeschen</a>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
@@ -131,14 +147,14 @@
                     <ul class="nav nav-tabs tabs" style="width: 100%;">
                         <li class="active tab" style="width: 25%;">
                             <a id="ta1" href="#home-2" data-toggle="tab" aria-expanded="false" class="active">
-                                <span class="visible-xs"><i style="color:#00a1b2;" class="fa fa-home"></i></span>
+                                <span class="visible-xs"><i style="color:#00a1b2;" class="fa fa-user"></i></span>
                                 <span style="color: #00a1b2; font-weight: bold;" class="hidden-xs">Info</span>
                             </a>
                         </li>
                         <li class="tab" style="width: 25%;">
                             <a id="ta2" href="#profile-2" data-toggle="tab" aria-expanded="false">
-                                <span class="visible-xs"><i style="color:#00a1b2;" class="fa fa-user"></i></span>
-                                <span style="color: #00a1b2; font-weight: bold;" class="hidden-xs">Beiträge</span>
+                                <span class="visible-xs"><i style="color:#00a1b2;" class="far fa-keyboard"></i></span>
+                                <span style="color: #00a1b2; font-weight: bold;" class="hidden-xs">Beitraege</span>
                             </a>
                         </li>
 
@@ -179,46 +195,54 @@
                                     <!-- Personal-Information -->
                                     <div class="panel panel-default panel-fill">
                                         <div class="panel-heading">
-
+                                            <p style="font-size: 20px"><i style="color:#00a1b2;"
+                                                                          class="fas fa-globe-americas"></i> Steckbrief
+                                            </p>
                                         </div>
 
 
                                         <div class="panel-body">
                                             <c:forEach items="${user}" var="u">
                                             <div class="about-info-p">
-                                                <strong>Name</strong>
+                                                <strong><i class="fas fa-signature"></i> Name</strong>
                                                 <br>
                                                 <p class="text-muted">${u.vorname} ${u.nachname}</p>
                                             </div>
-
-                                            <div class="about-info-p">
-                                                <strong>Email Adresse</strong>
+                                            <div class="about-info-p m-b-0">
+                                                <strong><i class="fas fa-birthday-cake"></i> Alter</strong>
                                                 <br>
-                                                <p class="text-muted">${u.email}</p>
+                                                <p id="age" class="text-muted">${u.geburtsDatum}</p>
                                             </div>
                                             <div class="about-info-p m-b-0">
-                                                <strong>Geburtsdatum</strong>
+                                                <strong><i class="fas fa-map-marker-alt"></i> Wohnort</strong>
                                                 <br>
-                                                <p class="text-muted">${u.geburtsDatum}</p>
+                                                <p class="text-muted">${u.wohnort}</p>
                                             </div>
                                             <div class="about-info-p m-b-0">
-                                                <strong>Geschlecht</strong>
+                                                <strong><i class="fas fa-user"></i> Geschlecht</strong>
                                                 <br>
                                                 <p class="text-muted">${u.geschlecht}</p>
                                             </div>
+                                            <div class="about-info-p m-b-0">
+                                                <strong><i class="fas fa-people-arrows"></i> Beziehungsstatus</strong>
+                                                <br>
+                                                <p class="text-muted">${u.beziehungsstatus}</p>
+                                            </div>
+                                            <div class="about-info-p m-b-0">
+                                                <strong><i class="far fa-calendar-alt"></i> Beigetreten</strong>
+                                                <br>
+                                                <p id="beigetreten" class="text-muted">${u.beigetreten}</p>
+                                            </div>
                                         </div>
                                     </div>
-
                                     <!-- Personal-Information -->
-
-
                                 </div>
 
                                 <div class="col-md-8">
                                     <!-- Personal-Information -->
                                     <div class="panel panel-default panel-fill">
                                         <div class="panel-heading">
-                                            <h3 class="panel-title">Ueber mich</h3>
+                                            <h3 style="font-size: 20px" class="panel-title">Beschreibung</h3>
                                         </div>
                                         <div class="panel-body">
                                             <p>${u.beschreibung}</p>
@@ -226,10 +250,7 @@
                                     </div>
                                     </c:forEach>
                                     <!-- Personal-Information -->
-
-
                                 </div>
-
                             </div>
                         </div>
 
@@ -429,7 +450,7 @@
                             <!-- Personal-Information -->
                             <div class="panel panel-default panel-fill">
                                 <div class="panel-heading">
-                                    <h3 class="panel-title">Profil bearbeiten</h3>
+                                    <h3 style="font-size: 20px" class="panel-title">Konto bearbeiten</h3>
                                 </div>
                                 <div class="panel-body">
                                     <c:forEach items="${user}" var="u">
@@ -437,46 +458,75 @@
                                             <input name="uid" value="<%= request.getParameter("uid")%>" type="text"
                                                    hidden>
                                             <div class="form-group">
-                                                <label for="firstName"></label>Name</label>
+                                                <label for="firstName"><strong>Vorname</strong></label>
                                                 <input name="vorname" value="${u.vorname}" style="height: 50px;"
                                                        type="text" id="firstName" class="form-control">
                                             </div>
                                             <div class="form-group">
-                                                <label for="lastName"></label>Name</label>
+                                                <label for="lastName"><strong>Nachname</strong></label>
                                                 <input name="nachname" value="${u.nachname}" style="height: 50px;"
                                                        type="text" id="lastName" class="form-control">
                                             </div>
                                             <div class="form-group">
-                                                <label for="Email">Email-Adresse </label>
+                                                <label for="email"><strong>Email-Adresse</strong></label>
                                                 <input name="email" value="${u.email}" style="height: 50px;"
                                                        type="email" id="email" class="form-control">
                                             </div>
                                             <div class="form-group">
-                                                <label for="password1">Altes Passwort</label>
-                                                <input onkeyup="checkPass()" name="old-password" style="height: 50px;" type="password"
-                                                       id="password1" class="form-control">
-                                            </div>
-                                            <p style="display: none; color: red" id="oldPassWarning">Falsche Eingabe!</p>
-                                            <div class="form-group">
-                                                <label for="password2">Neues  Passwort</label>
-                                                <input oninvalid="checkPass1(this)" oninput="checkPass1(this)" onkeyup="checkPasses();" name="new-password" style="height: 50px;" type="password"
-                                                       id="password2" class="form-control">
+                                                <label for="wohnort"><strong>Wohnort</strong></label>
+                                                <input name="wohnort" value="${u.wohnort}" style="height: 50px;"
+                                                       type="text" id="wohnort" class="form-control">
                                             </div>
                                             <div class="form-group">
-                                                <label for="RePassword">Passwort wiederholen</label>
-                                                <input oninvalid="checkPass1(this)" oninput="checkPass1(this)" onkeyup="checkPasses();" style="height: 50px;" type="password" id="rePassword"
-                                                       class="form-control">
+                                                <div class="form-group">
+                                                    <label for="beziehungsstatus"><strong>Beziehungsstatus</strong></label>
+                                                    <select name="beziehungsstatus" class="form-control"
+                                                            id="beziehungsstatus">
+                                                        <option value="Single">Single</option>
+                                                        <option value="In einer Beziehung">In einer Beziehung</option>
+                                                        <option value="Verlobt">Verlobt</option>
+                                                        <option value="Verheiratet">Verheiratet</option>
+                                                        <option value="Getrennt">Getrennt</option>
+                                                        <option value="Geschieden">Geschieden</option>
+                                                        <option value="Verwitwet">Verwitwet</option>
+                                                    </select>
+                                                </div>
                                             </div>
-                                            <p style="display: none; color: red" id="passwordWarning">Passwörter stimmen nicht überein</p>
+                                            <input type="text" hidden id="beziehungsstatusText"
+                                                   value="${u.beziehungsstatus}">
                                             <div class="form-group">
-                                                <label for="AboutMe">Ueber Mich</label>
+                                                <label for="aboutMe"><strong>Beschreibung</strong></label>
                                                 <textarea name="beschreibung" style="height: 125px" id="aboutMe"
                                                           class="form-control">${u.beschreibung}</textarea>
                                             </div>
+                                            <div class="form-group">
+                                                <label for="password1"><strong>Altes Passwort</strong></label>
+                                                <input onkeyup="checkPass()" name="old-password" style="height: 50px;"
+                                                       type="password"
+                                                       id="password1" class="form-control">
+                                            </div>
+                                            <p style="display: none; color: red" id="oldPassWarning">Falsche
+                                                Eingabe!</p>
+                                            <div class="form-group">
+                                                <label for="password2"><strong>Neues Passwort</strong></label>
+                                                <input oninvalid="checkPass1(this)" oninput="checkPass1(this)"
+                                                       onkeyup="checkPasses();" name="new-password"
+                                                       style="height: 50px;" type="password"
+                                                       id="password2" class="form-control">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="rePassword"><strong>Passwort wiederholen</strong></label>
+                                                <input oninvalid="checkPass1(this)" oninput="checkPass1(this)"
+                                                       onkeyup="checkPasses();" style="height: 50px;" type="password"
+                                                       id="rePassword"
+                                                       class="form-control">
+                                            </div>
+                                            <p style="display: none; color: red" id="passwordWarning">Passwörter stimmen
+                                                nicht überein</p>
 
                                             <div class="form-group">
                                                 <input hidden value="${u.geschlecht}" id="geschlecht">
-                                                <label>Geschlecht</label>
+                                                <label><strong>Geschlecht</strong></label>
                                                 <div class="col-md-8 ">
                                                     <label>
                                                         <input id="maennlich" value="maennlich" type="radio"
@@ -496,11 +546,12 @@
                                                 </div>
                                             </div>
 
-                                            <button style="background-color: #00a1b2; color: white;"
+                                            <button id="saveBtn" style="background-color: #00a1b2; color: white;"
                                                     class="btn  waves-effect waves-light w-md" type="submit">Speichern
                                             </button>
-
-                                            <a href="/deleteYourProfile?uid=<%= request.getParameter("uid")%>" type="button" class="btn btn-danger">Loesche Konto</a>
+                                            <hr>
+                                            <a href="/deleteYourProfile?uid=<%= request.getParameter("uid")%>"
+                                               type="button" class="btn btn-danger">Konto loeschen</a>
 
 
                                         </form>
@@ -539,6 +590,10 @@
 
 <script>
     $(document).ready(function () {
+        var beziehungsstatus = $("#beziehungsstatusText").val();
+        $('#beziehungsstatus option[value="' + beziehungsstatus + '"]').prop("selected", true);
+
+
         var gender = $("#geschlecht").val();
         if (gender === "maennlich") {
             $("#maennlich").prop("checked", true);
@@ -549,6 +604,23 @@
         } else {
             $("#divers").prop("checked", true);
         }
+
+        const getAge = birthDate => Math.floor((new Date() - new Date(birthDate).getTime()) / 3.15576e+10);
+        var birthDate = $("#age").text();
+
+        birthDate = birthDate.slice(0, 10);
+
+        var age = getAge(birthDate);
+
+        $("#age").text(age);
+
+        var beigetreten = $("#beigetreten").text();
+
+        beigetreten = beigetreten.slice(0, 10);
+
+        $("#beigetreten").text(beigetreten);
+
+
     });
 </script>
 

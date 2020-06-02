@@ -101,10 +101,21 @@ public class LoginController {
 
                 return "redirect:loginFailed";
             } else if (loggedInUser.getRoles().toString().contains("ROLE_USER")) {
+                if (loggedInUser.getVisited() == 0) {
 
-                return "redirect:/profile?uid=" + loggedInUser.getUid();
+                    loggedInUser.setVisited(loggedInUser.getVisited() + 1);
+                    userRepo.save(loggedInUser);
 
+                    return "redirect:/willkommen?uid=" + loggedInUser.getUid();
+
+                } else {
+                    loggedInUser.setVisited(loggedInUser.getVisited() + 1);
+                    userRepo.save(loggedInUser);
+                    return "redirect:/profile?uid=" + loggedInUser.getUid();
+                }
             } else {
+                loggedInUser.setVisited(loggedInUser.getVisited() + 1);
+                userRepo.save(loggedInUser);
                 return "redirect:/admin-menu";
             }
         }

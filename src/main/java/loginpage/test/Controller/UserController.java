@@ -64,9 +64,10 @@ public class UserController {
         String hashedPassword = passwordEncoder.encode(passwort);
 
         User registeredUser = userRepo.findByEmail(email);
+        Date date = new Date();
 
         System.out.println(registeredUser);
-        if(registeredUser != null) {
+        if (registeredUser != null) {
             System.out.println("movcud user");
             registeredUser.setDeleted(0);
             registeredUser.setBlocked(0);
@@ -76,13 +77,15 @@ public class UserController {
             registeredUser.setVorname(vorname);
             registeredUser.setPassword(hashedPassword);
             registeredUser.setGeburtsDatum(geburtsDatum);
+            System.out.println("current date: " +date);
+            registeredUser.setBeigetreten(date);
             userRepo.save(registeredUser);
-        }
-        else {
+        } else {
             System.out.println("movcud olmayan user");
             User user = new User(vorname, nachname, hashedPassword, email, geburtsDatum, geschlecht);
             user.setBlocked(0);
             user.setDeleted(0);
+            user.setBeigetreten(date);
             userRepo.save(user);
 
             roleRepo.insertUserRole(user.getUid(), 2);
@@ -98,6 +101,8 @@ public class UserController {
                            @RequestParam("email") String email,
                            @RequestParam("beschreibung") String beschreibung,
                            @RequestParam("geschlecht") String geschlecht,
+                           @RequestParam("wohnort") String wohnort,
+                           @RequestParam("beziehungsstatus") String beziehunsstatus,
                            @RequestParam("uid") int uid) {
 
 
@@ -108,6 +113,8 @@ public class UserController {
         user.setEmail(email);
         user.setBeschreibung(beschreibung);
         user.setGeschlecht(geschlecht);
+        user.setBeziehungsstatus(beziehunsstatus);
+        user.setWohnort(wohnort);
 
         userRepo.save(user);
 
@@ -124,8 +131,7 @@ public class UserController {
         if (user != null && user.getDeleted() == 0) {
             message = "Email is not available";
             System.out.println("Email is not available");
-        }
-        else {
+        } else {
             message = "Email is available";
             System.out.println("Email is available");
         }
@@ -330,5 +336,32 @@ public class UserController {
         userRepo.save(user);
 
         return "redirect:/login";
+    }
+
+    @RequestMapping("/willkommen")
+    @PreAuthorize("hasRole('ROLE_USER')")
+    public String welcomeUserPage(@RequestParam("uid") int uid) {
+
+        return "user-ui/welcome-page.jsp";
+    }
+
+    @RequestMapping("/confirmWelcomeInfos")
+    @PreAuthorize("hasRole('ROLE_USER')")
+    public String welcomeUserInfos(@RequestParam("uid") int uid,
+                                   @RequestParam("wohnort") String wohnort,
+                                   @RequestParam("beziehungsstatus") String beziehungsstatus,
+                                   @RequestParam("beschreibung") String beschreibung) {
+
+        User user = userRepo.findByUid(uid);
+
+        user.setWohnort(wohnort);
+
+        user.setBeziehungsstatus(beziehungsstatus);
+
+        user.setBeschreibung(beschreibung);
+
+        userRepo.save(user);
+
+        return "redirect:/profile?uid=" + uid;
     }
 }

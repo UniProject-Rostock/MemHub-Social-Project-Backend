@@ -58,7 +58,7 @@
             <button type="button" onclick="this.parentNode.parentNode.removeChild(this.parentNode);" class="close"
                     data-dismiss="alert"><span aria-hidden="true">x</span><span class="sr-only">Close</span></button>
             <strong><i class="fa fa-success"></i> Erfolgreich!</strong>
-            <p id="alert2" style="font-family: sans-serif; ">Sie haben sich erfolgreich registriert</p>
+            <p id="alert2" style="font-family: sans-serif; ">Sie haben sich erfolgreich registriert. Melden Sie sich an, um weiterzumachen.</p>
         </div>
     </c:if>
 </div>
