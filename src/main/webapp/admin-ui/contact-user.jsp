@@ -59,7 +59,7 @@
 
 <body>
 
-<form action="/contact" method="post">
+<form action="/adminContactsUser" method="post">
     <div id="myModal" class="modal" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -73,14 +73,14 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="email">Write email content here</label>
-                        <textarea class="form-control" id="email" rows="3"></textarea>
+                        <textarea name="emailInhalt" class="form-control" id="email" rows="3"></textarea>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button onclick="backToUserTable()" id="closeBtn" type="button" class="btn btn-secondary"
                             data-dismiss="modal">Close
                     </button>
-                    <button id="blockBtn" type="button" class="btn btn-primary">Send</button>
+                    <button id="blockBtn" type="submit" class="btn btn-primary">Send</button>
                 </div>
             </div>
         </div>

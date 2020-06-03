@@ -75,6 +75,17 @@
 </div>
 
 <div class="container mt-2 mb-4">
+    <c:if test="${not empty successEmailForgotPassword}">
+        <div class="alert alert-success alert-dismissible" role="alert">
+            <button type="button" onclick="this.parentNode.parentNode.removeChild(this.parentNode);" class="close"
+                    data-dismiss="alert"><span aria-hidden="true">x</span><span class="sr-only">Close</span></button>
+            <strong><i class="fa fa-success"></i> Erfolgreich!</strong>
+            <p id="alert4" style="font-family: sans-serif; ">Wir haben an Ihre Email einen Link gesendet, um Ihr Passwort zurueckzusetzen. Kontrollieren Sie bitte Ihre Email</p>
+        </div>
+    </c:if>
+</div>
+
+<div class="container mt-2 mb-4">
     <div class="col-sm-8 ml-auto mr-auto">
         <ul class="nav nav-pills nav-fill mb-1" id="pills-tab" role="tablist">
             <li class="nav-item"><a class="nav-link active" id="pills-signin-tab" data-toggle="pill"
@@ -206,7 +217,7 @@
     <!-- Modal -->
     <div class="modal fade" id="forgotPass" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog" role="document">
-            <form method="post" id="forgotpassForm">
+            <form method="post" id="forgotpassForm" action="/forgotpassword">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title">Passwort vergessen</h5>

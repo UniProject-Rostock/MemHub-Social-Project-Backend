@@ -1,13 +1,17 @@
 package loginpage.test.Controller;
 
+import loginpage.test.DAO.BeitragRepo;
 import loginpage.test.DAO.RoleRepo;
 import loginpage.test.DAO.UserRepo;
+import loginpage.test.Entity.Beitrag;
 import loginpage.test.Entity.User;
+import loginpage.test.Service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -33,6 +37,9 @@ public class UserController {
 
     @Autowired
     RoleRepo roleRepo;
+
+    @Autowired
+    BeitragRepo beitragRepo;
 
     int id = LoginController.id;
 
@@ -77,7 +84,7 @@ public class UserController {
             registeredUser.setVorname(vorname);
             registeredUser.setPassword(hashedPassword);
             registeredUser.setGeburtsDatum(geburtsDatum);
-            System.out.println("current date: " +date);
+            System.out.println("current date: " + date);
             registeredUser.setBeigetreten(date);
             userRepo.save(registeredUser);
         } else {
@@ -217,20 +224,6 @@ public class UserController {
     }
 
 
-    @RequestMapping("/contact")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public String contactUser(@RequestParam("uid") int uid) {
-
-        User user = userRepo.findByUid(uid);
-
-        String email = user.getEmail();
-
-        System.out.println(email);
-
-        return "redirect:/users";
-    }
-
-
     @RequestMapping(value = "/deleteAdmin", method = RequestMethod.GET)
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String deleteAdminPage(@RequestParam("uid") int uid) {
@@ -363,5 +356,77 @@ public class UserController {
         userRepo.save(user);
 
         return "redirect:/profile?uid=" + uid;
+    }
+
+
+    @RequestMapping("/startseite")
+    @PreAuthorize("hasRole('ROLE_USER')")
+    public String startSeite(@RequestParam("uid") int uid) {
+
+        return "user-ui/startseite.jsp";
+    }
+
+
+    @RequestMapping("/sharePost")
+    @PreAuthorize("hasRole('ROLE_USER')")
+    public String sharePost(@RequestParam("uid") int uid,
+                            @RequestParam("inhalt") String inhalt) {
+
+        Beitrag beitrag = new Beitrag();
+        beitrag.setBeitragsInhalt(inhalt);
+        beitragRepo.save(beitrag);
+
+        beitragRepo.insertUserBeitrag(uid, beitrag.getBeitrag_id());
+
+        return "redirect:/startseite?uid=" + uid;
+    }
+
+    @Autowired
+    EmailService emailService;
+
+    @PostMapping("/forgotpassword")
+    public String forgotPassword(@RequestParam("forgotemail") String email, HttpServletRequest request) {
+        User user = userRepo.findByEmail(email);
+        if (user != null) {
+            String appUrl = request.getScheme() + "://" + request.getServerName();
+            SimpleMailMessage passwordResetEmail = new SimpleMailMessage();
+            passwordResetEmail.setTo(user.getEmail());
+            System.out.println(user.getGeschlecht());
+            System.out.println(user.getVorname());
+            passwordResetEmail.setSubject("Passwort zurücksetzen - MemoHub");
+            passwordResetEmail.setText("Guten Tag, wir haben gehört, dass Sie Ihr Passwort vergessen haben. Kein Problem! \n \nKlicken Sie bitte einfach auf den folgenden Link, um Ihr Passwort zurückzusetzen:\n" + appUrl
+                    + "/zurücksetzen?token=" + "123445" + "\n \nWenn Sie den Link innerhalb von 3 Stunden nicht verwenden, wird der Link ablaufen. \n \n \nMit freundlichen Grüßen \nMemHub Team");
+            emailService.sendEmail(passwordResetEmail);
+        } else {
+            System.out.println("not found");
+        }
+        return "redirect:/successEmailForgotPassword";
+    }
+
+    @GetMapping("/successEmailForgotPassword")
+    public String successEmailForgotPassword(Model model) {
+
+        model.addAttribute("successEmailForgotPassword", "true");
+
+        return "login-ui/login.jsp";
+    }
+
+    @RequestMapping("/adminContactsUser")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public String adminContactsUser(@RequestParam("uid") int uid, @RequestParam("emailInhalt") String inhalt, HttpServletRequest request) {
+
+        User user = userRepo.findByUid(uid);
+
+        if (user != null) {
+            SimpleMailMessage passwordResetEmail = new SimpleMailMessage();
+            passwordResetEmail.setTo(user.getEmail());
+            passwordResetEmail.setSubject("MemoHub Kontakt Team");
+            passwordResetEmail.setText(inhalt);
+            emailService.sendEmail(passwordResetEmail);
+        } else {
+            System.out.println("not found");
+        }
+
+        return "redirect:/users";
     }
 }

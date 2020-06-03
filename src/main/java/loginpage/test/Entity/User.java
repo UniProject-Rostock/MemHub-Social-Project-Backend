@@ -66,6 +66,10 @@ public class User  implements Serializable {
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
 
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(name = "user_beitrag", joinColumns = @JoinColumn(name = "user_id_beitrag"), inverseJoinColumns = @JoinColumn(name = "beitrag_id"))
+    private Set<Role> beitrags;
+
 
     public User(String vorname, String nachname, String password, String email, Date geburtsDatum, String geschlecht) {
         this.vorname = vorname;
@@ -202,5 +206,13 @@ public class User  implements Serializable {
 
     public void setBeigetreten(Date beigetreten) {
         this.beigetreten = beigetreten;
+    }
+
+    public Set<Role> getBeitrags() {
+        return beitrags;
+    }
+
+    public void setBeitrags(Set<Role> beitrags) {
+        this.beitrags = beitrags;
     }
 }

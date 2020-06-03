@@ -74,7 +74,7 @@
 </head>
 <body>
 <nav style="background-color: #00a1b2;" class="mb-1 navbar navbar-expand-lg navbar-dark default-color fixed-top">
-    <a class="navbar-brand" href="#">MemHub</a>
+    <a class="navbar-brand" href="/startseite?uid=<%= request.getParameter("uid")%>">MemHub</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-3"
             aria-controls="navbarSupportedContent-3" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -89,8 +89,7 @@
                 </a>
                 <div class="dropdown-menu dropdown-menu-right dropdown-default"
                      aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item waves-effect waves-light" href="#">Action</a>
-                    <a class="dropdown-item waves-effect waves-light" href="#">Another action</a>
+                    <a class="dropdown-item waves-effect waves-light" href="#">Dokumentation</a>
                     <a class="dropdown-item waves-effect waves-light" href="/doLogout">Abmelden <i
                             class="fas fa-sign-out-alt"></i></a>
                 </div>
@@ -615,6 +614,7 @@
         $("#age").text(age);
 
         var beigetreten = $("#beigetreten").text();
+
 
         beigetreten = beigetreten.slice(0, 10);
 
