@@ -16,6 +16,7 @@ public class Role implements Serializable {
     @Column(name = "role_id")
     private int role_id;
 
+
     @Column(name = "role_name")
     private String role;
 
@@ -53,5 +54,6 @@ public class Role implements Serializable {
     public void setRole(String role) {
         this.role = role;
     }
+
 
 }

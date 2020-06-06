@@ -5,6 +5,7 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.Set;
 
@@ -58,17 +59,21 @@ public class User  implements Serializable {
     @Column(name = "beigetreten")
     private Date beigetreten;
 
+    @Column(name = "token")
+    private String token;
+
     @Lob
     @Column(name="photo")
     private byte[] photo;
 
+    @ToString.Exclude
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinTable(name = "user_beitrag", joinColumns = @JoinColumn(name = "user_id_beitrag"), inverseJoinColumns = @JoinColumn(name = "beitrag_id"))
-    private Set<Role> beitrags;
+    @ToString.Exclude
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", orphanRemoval = true)
+    private Set<Beitrag> beitrags;
 
 
     public User(String vorname, String nachname, String password, String email, Date geburtsDatum, String geschlecht) {
@@ -208,11 +213,19 @@ public class User  implements Serializable {
         this.beigetreten = beigetreten;
     }
 
-    public Set<Role> getBeitrags() {
+    public Set<Beitrag> getBeitrags() {
         return beitrags;
     }
 
-    public void setBeitrags(Set<Role> beitrags) {
+    public void setBeitrags(Set<Beitrag> beitrags) {
         this.beitrags = beitrags;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }

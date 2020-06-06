@@ -68,6 +68,14 @@
         #saveBtn:hover {
             background-color: #00848e;
         }
+
+        .card-header {
+            height: 50px;
+        }
+
+        .card-text {
+            font-size: 17px;
+        }
     </style>
 
     <title></title>
@@ -199,7 +207,6 @@
                                             </p>
                                         </div>
 
-
                                         <div class="panel-body">
                                             <c:forEach items="${user}" var="u">
                                             <div class="about-info-p">
@@ -259,176 +266,60 @@
 
                                 <div class="panel-body">
                                     <!--- \\\\\\\Post-->
-                                    <div class="card gedf-card">
-                                        <div class="card-header">
-                                            <div class="d-flex justify-content-between align-items-center">
+
+                                    <c:forEach items="${beitrag}" var="b">
+                                        <div class="card gedf-card">
+                                            <div class="card-header">
                                                 <div class="d-flex justify-content-between align-items-center">
-                                                    <div class="mr-2">
-                                                        <img class="rounded-circle" width="45" src="profile.png" alt="">
+                                                    <div class="d-flex justify-content-between align-items-center">
+                                                        <div class="mr-2">
+                                                            <img class="rounded-circle" width="45" src="profile.png"
+                                                                 alt="">
+                                                        </div>
+                                                        <div class="ml-2">
+                                                        </div>
                                                     </div>
-                                                    <div class="ml-2">
-                                                        <div class="h5 m-0">Mustermann</div>
+                                                    <div>
+                                                        <div class="dropdown">
+                                                            <button style="color: #00a1b2;"
+                                                                    class="btn btn-link dropdown-toggle" type="button"
+                                                                    id="gedf-drop2" data-toggle="dropdown"
+                                                                    aria-haspopup="true" aria-expanded="false">
 
-                                                    </div>
-                                                </div>
-                                                <div>
-                                                    <div class="dropdown">
-                                                        <button style="color: #00a1b2;"
-                                                                class="btn btn-link dropdown-toggle" type="button"
-                                                                id="gedf-drop2" data-toggle="dropdown"
-                                                                aria-haspopup="true" aria-expanded="false">
+                                                            </button>
+                                                            <div class="dropdown-menu dropdown-menu-right"
+                                                                 aria-labelledby="gedf-drop2">
+                                                                <div class="h6 dropdown-header">Konfiguration</div>
 
-                                                        </button>
-                                                        <div class="dropdown-menu dropdown-menu-right"
-                                                             aria-labelledby="gedf-drop2">
-                                                            <div class="h6 dropdown-header">Konfiguration</div>
 
-                                                            <a class="dropdown-item" href="#">Verbergen</a>
-
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
+
                                             </div>
+                                            <div class="card-body">
+                                                <div class="text-muted h7 mb-2"><i class="fa fa-clock-o"></i> 10 min ago
+                                                </div>
 
-                                        </div>
-                                        <div class="card-body">
-                                            <div class="text-muted h7 mb-2"><i class="fa fa-clock-o"></i>10 min ago
+
+                                                <p class="card-text">
+                                                        ${b.beitragsInhalt}
+                                                </p>
                                             </div>
-
-
-                                            <p class="card-text">
-                                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo recusandae
-                                                nulla rem eos ipsa praesentium esse magnam nemo dolor
-                                                sequi fuga quia quaerat cum, obcaecati hic, molestias minima iste
-                                                voluptates.
-                                            </p>
-                                        </div>
-                                        <div class="card-footer">
+                                            <div class="card-footer">
                                             <textarea class="form-control" placeholder="write a comment..."
                                                       rows="3"></textarea>
-                                            <br>
-                                            <button style="background-color: #00a1b2;" type="button"
-                                                    class="btn btn-info  pull-right">Kommentieren
-                                            </button>
-                                            <div class="clearfix"></div>
+                                                <br>
+                                                <button style="background-color: #00a1b2;" type="button"
+                                                        class="btn btn-info  pull-right">Kommentieren
+                                                </button>
+                                                <div class="clearfix"></div>
 
+                                            </div>
                                         </div>
-                                    </div>
+                                    </c:forEach>
                                     <!-- Post /////-->
-
-
-                                    <!--- \\\\\\\Post-->
-                                    <div class="card gedf-card">
-                                        <div class="card-header">
-                                            <div class="d-flex justify-content-between align-items-center">
-                                                <div class="d-flex justify-content-between align-items-center">
-                                                    <div class="mr-2">
-                                                        <img class="rounded-circle" width="45" src="profile.png" alt="">
-                                                    </div>
-                                                    <div class="ml-2">
-                                                        <div class="h5 m-0">Mustermann</div>
-
-                                                    </div>
-                                                </div>
-                                                <div>
-                                                    <div class="dropdown">
-                                                        <button style="color: #00a1b2;"
-                                                                class="btn btn-link dropdown-toggle" type="button"
-                                                                id="gedf-drop1" data-toggle="dropdown"
-                                                                aria-haspopup="true" aria-expanded="false">
-
-                                                        </button>
-                                                        <div class="dropdown-menu dropdown-menu-right"
-                                                             aria-labelledby="gedf-drop1">
-                                                            <div class="h6 dropdown-header">Konfiguration</div>
-
-                                                            <a class="dropdown-item" href="#">Verbergen</a>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                        <div class="card-body">
-                                            <div class="text-muted h7 mb-2"><i class="fa fa-clock-o"></i>10 min ago
-                                            </div>
-
-
-                                            <p class="card-text">
-                                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo recusandae
-                                                nulla rem eos ipsa praesentium esse magnam nemo dolor
-                                                sequi fuga quia quaerat cum, obcaecati hic, molestias minima iste
-                                                voluptates.
-                                            </p>
-                                        </div>
-                                        <div class="card-footer">
-                                            <textarea class="form-control" placeholder="write a comment..."
-                                                      rows="3"></textarea>
-                                            <br>
-                                            <button style="background-color: #00a1b2;" type="button"
-                                                    class="btn btn-info   pull-right">Kommentieren
-                                            </button>
-                                            <div class="clearfix"></div>
-
-                                        </div>
-                                    </div>
-                                    <div class="card gedf-card">
-                                        <div class="card-header">
-                                            <div class="d-flex justify-content-between align-items-center">
-                                                <div class="d-flex justify-content-between align-items-center">
-                                                    <div class="mr-2">
-                                                        <img class="rounded-circle" width="45" src="profile.png" alt="">
-                                                    </div>
-                                                    <div class="ml-2">
-                                                        <div class="h5 m-0">Mustermann</div>
-
-                                                    </div>
-                                                </div>
-                                                <div>
-                                                    <div class="dropdown">
-                                                        <button style="color: #00a1b2;"
-                                                                class="btn btn-link dropdown-toggle" type="button"
-                                                                id="gedf-drop3" data-toggle="dropdown"
-                                                                aria-haspopup="true" aria-expanded="false">
-
-                                                        </button>
-                                                        <div class="dropdown-menu dropdown-menu-right"
-                                                             aria-labelledby="gedf-drop3">
-                                                            <div class="h6 dropdown-header">Konfiguration</div>
-
-                                                            <a class="dropdown-item" href="#">Verbergen</a>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                        <div class="card-body">
-                                            <div class="text-muted h7 mb-2"><i class="fa fa-clock-o"></i>10 min ago
-                                            </div>
-
-
-                                            <p class="card-text">
-                                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo recusandae
-                                                nulla rem eos ipsa praesentium esse magnam nemo dolor
-                                                sequi fuga quia quaerat cum, obcaecati hic, molestias minima iste
-                                                voluptates.
-                                            </p>
-                                        </div>
-                                        <div class="card-footer">
-                                            <textarea class="form-control" placeholder="write a comment..."
-                                                      rows="3"></textarea>
-                                            <br>
-                                            <button style="background-color: #00a1b2;" type="button"
-                                                    class="btn btn-info   pull-right">kommentieren
-                                            </button>
-                                            <div class="clearfix"></div>
-
-                                        </div>
-                                    </div>
-
                                 </div>
                             </div>
                             <!-- Personal-Information -->

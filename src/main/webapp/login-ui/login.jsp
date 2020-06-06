@@ -85,6 +85,16 @@
     </c:if>
 </div>
 
+
+<div class="container mt-2 mb-4" >
+    <c:if test="${not empty passwordResetSuccess}">
+        <div class="alert alert-success alert-dismissible" role="alert">
+            <button type="button" onclick="this.parentNode.parentNode.removeChild(this.parentNode);" class="close" data-dismiss="alert"><span aria-hidden="true">x</span><span class="sr-only">Close</span></button>
+            <strong><i class="fa fa-success"></i> Erfolgreich!</strong> <p id="alert6" style="font-family: sans-serif; ">Das Passwort wurde erfolgreich zurueckgesetzt. Sie koennen sich mit neuem Passwort anmelden</p>
+        </div>
+    </c:if>
+</div>
+
 <div class="container mt-2 mb-4">
     <div class="col-sm-8 ml-auto mr-auto">
         <ul class="nav nav-pills nav-fill mb-1" id="pills-tab" role="tablist">
