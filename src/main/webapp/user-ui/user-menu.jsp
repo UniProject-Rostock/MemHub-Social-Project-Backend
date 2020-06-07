@@ -299,10 +299,8 @@
 
                                             </div>
                                             <div class="card-body">
-                                                <div class="text-muted h7 mb-2"><i class="fa fa-clock-o"></i> 10 min ago
-                                                </div>
 
-
+                                                <div class="beitragZeit text-muted h7 mb-2"> ${b.beitragZeit}</div>
                                                 <p class="card-text">
                                                         ${b.beitragsInhalt}
                                                 </p>
@@ -511,6 +509,15 @@
 
         $("#beigetreten").text(beigetreten);
 
+
+        $(".beitragZeit").each(function () {
+
+            var beitragZeit = $(this).text();
+
+            beitragZeit = beitragZeit.slice(0, 11);
+
+            $(this).text(beitragZeit).prepend("<i class=\"fa fa-clock-o\"></i> ");
+        });
 
     });
 </script>

@@ -75,6 +75,11 @@ public class User  implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", orphanRemoval = true)
     private Set<Beitrag> beitrags;
 
+    @ToString.Exclude
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(name = "user_notification", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "notification_id"))
+    private Set<Notification> notifications;
+
 
     public User(String vorname, String nachname, String password, String email, Date geburtsDatum, String geschlecht) {
         this.vorname = vorname;

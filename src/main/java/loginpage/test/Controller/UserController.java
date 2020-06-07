@@ -1,9 +1,9 @@
 package loginpage.test.Controller;
 
-import loginpage.test.DAO.BeitragRepo;
-import loginpage.test.DAO.RoleRepo;
-import loginpage.test.DAO.UserRepo;
+import loginpage.test.DAO.*;
 import loginpage.test.Entity.Beitrag;
+import loginpage.test.Entity.Gruppe;
+import loginpage.test.Entity.Notification;
 import loginpage.test.Entity.User;
 import loginpage.test.Service.EmailService;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -38,6 +38,12 @@ public class UserController {
     BeitragRepo beitragRepo;
 
     @Autowired
+    GruppeRepo gruppeRepo;
+
+    @Autowired
+    NotificationRepo notificationRepo;
+
+    @Autowired
     EmailService emailService;
 
     int id = LoginController.id;
@@ -54,22 +60,72 @@ public class UserController {
         model.addAttribute("user", userList);
 
         List<Beitrag> postsOfUser = beitragRepo.getAllPostsFromUser(uid);
-        List<Object> postInfos = new ArrayList<>();
-
-        for (Beitrag beitrag : postsOfUser) {
-            System.out.println(beitrag.getBeitragZeit());
-
-            postInfos.add(beitrag.getBeitragSicherheit());
-            postInfos.add(beitrag.getBeitragsInhalt());
-            postInfos.add(beitrag.getUser());
-            postInfos.add(beitrag.getUser());
-        }
 
 
-        model.addAttribute("beitrag", postInfos);
+        model.addAttribute("beitrag", postsOfUser);
 
         return "user-ui/user-menu.jsp";
     }
+
+    @RequestMapping("/notifications")
+    @ResponseBody
+    public ResponseEntity sendNotifications(HttpServletRequest request) {
+
+        int uid = Integer.parseInt(request.getParameter("uid"));
+
+        List<Notification> notifications = notificationRepo.getUserNotifications(uid);
+        List<String> result = new ArrayList<>();
+
+        for (Notification notification : notifications) {
+            result.add(notification.getInhalt());
+        }
+
+        return ResponseEntity.status(HttpStatus.OK).body(result);
+    }
+
+    @RequestMapping("/friends")
+    @ResponseBody
+    public ResponseEntity friends(HttpServletRequest request) {
+
+        int uid = Integer.parseInt(request.getParameter("uid"));
+
+        List<User> users = userRepo.findAll();
+        List<String> result = new ArrayList<>();
+
+        for (User user : users) {
+            result.add(user.getVorname() + " " + user.getNachname());
+            result.add(String.valueOf(user.getUid()));
+        }
+
+        return ResponseEntity.status(HttpStatus.OK).body(result);
+    }
+
+    @RequestMapping("/gruppeEinladung")
+    @ResponseBody
+    public ResponseEntity gruppeEinladen(HttpServletRequest request) {
+
+        int uid = Integer.parseInt(request.getParameter("uid"));
+        String groupName = request.getParameter("groupName");
+
+        int friendId = Integer.parseInt(request.getParameter("friendId"));
+        System.out.println(uid);
+        System.out.println(friendId);
+        User user = userRepo.findByUid(uid);
+
+        System.out.println(user.getVorname() + " " + "hat Sie zu der Gruppe" + " " + groupName + " eingeladen");
+
+
+        Notification notification = new Notification();
+        notification.setHeader("Gruppenanfrage");
+        notification.setInhalt(user.getVorname() + " " + "hat Sie zu der Gruppe" + " " + groupName + " eingeladen");
+        notificationRepo.save(notification);
+
+
+        notificationRepo.addNotificationToUser(friendId, notification.getId());
+
+        return ResponseEntity.status(HttpStatus.OK).body("gesendet");
+    }
+
 
     @RequestMapping("/addUser")
     public String addUser(@RequestParam("vorname") String vorname,
@@ -234,7 +290,14 @@ public class UserController {
 
     @RequestMapping("/startseite")
     @PreAuthorize("hasRole('ROLE_USER')")
-    public String startSeite(@RequestParam("uid") int uid) {
+    public String startSeite(@RequestParam("uid") int uid, Model model) {
+
+        User user = userRepo.findByUid(uid);
+
+
+        List<Gruppe> gruppen = gruppeRepo.groupsOfUser(uid);
+
+        model.addAttribute("gruppen", gruppen);
 
         return "user-ui/startseite.jsp";
     }

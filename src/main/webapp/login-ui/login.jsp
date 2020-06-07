@@ -57,7 +57,7 @@
         <div class="alert alert-success alert-dismissible" role="alert">
             <button type="button" onclick="this.parentNode.parentNode.removeChild(this.parentNode);" class="close"
                     data-dismiss="alert"><span aria-hidden="true">x</span><span class="sr-only">Close</span></button>
-            <strong><i class="fa fa-success"></i> Erfolgreich!</strong>
+            <strong><i class="fa fa-success"></i> Registrierung erfolgreich!</strong>
             <p id="alert2" style="font-family: sans-serif; ">Sie haben sich erfolgreich registriert. Melden Sie sich an, um weiterzumachen.</p>
         </div>
     </c:if>
@@ -79,8 +79,8 @@
         <div class="alert alert-success alert-dismissible" role="alert">
             <button type="button" onclick="this.parentNode.parentNode.removeChild(this.parentNode);" class="close"
                     data-dismiss="alert"><span aria-hidden="true">x</span><span class="sr-only">Close</span></button>
-            <strong><i class="fa fa-success"></i> Erfolgreich!</strong>
-            <p id="alert4" style="font-family: sans-serif; ">Wir haben an Ihre Email einen Link gesendet, um Ihr Passwort zurueckzusetzen. Kontrollieren Sie bitte Ihre Email</p>
+            <strong><i class="fa fa-success"></i> Passwort geändert!</strong>
+            <p id="alert4" style="font-family: sans-serif; ">Ihr Passwort wurde geaendert. Sie koennen sich mit neuem Passwort anmelden.</p>
         </div>
     </c:if>
 </div>
