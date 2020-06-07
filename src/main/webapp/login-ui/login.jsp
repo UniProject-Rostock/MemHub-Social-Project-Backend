@@ -116,7 +116,7 @@
                                    placeholder="Geben Sie Ihre Email-Adresse ein" required>
                         </div>
                         <div class="form-group">
-                            <label class="font-weight-bold">Password <span class="text-danger">*</span></label>
+                            <label class="font-weight-bold">Passwort <span class="text-danger">*</span></label>
                             <input type="password" name="password" id="anmelde-password" class="form-control"
                                    placeholder="Geben Sie Ihr Passwort ein" required>
                         </div>
@@ -124,7 +124,7 @@
                             <div class="row">
                                 <div class="col">
                                     <div class="custom-control custom-checkbox ">
-                                        <input type="checkbox" class="custom-control-input" id="remember-button">
+                                        <input name="remember-me" type="checkbox" class="custom-control-input" id="remember-button">
                                         <label class="custom-control-label" for="remember-button">Erinnere mich</label>
                                     </div>
                                 </div>

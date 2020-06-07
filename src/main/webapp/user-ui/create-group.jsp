@@ -46,31 +46,13 @@
     #gName {
         height: 50px;
     }
-
-    #addFreundeBtn {
-        background-color: #00a1b2;
-        border-color: #00a1b2;
+    .save {
+        height: 50px;
     }
 
-    #addFreundeBtn:hover {
+    .save:hover {
         background-color: #00848e;
-    }
-
-    .einladungBtn {
-        background-color: #00a1b2;
-        border-color: #00a1b2;
-        height: 35px;
-    }
-
-    .einladungBtn:hover {
-        background-color: #00848e;
-    }
-
-    #modal-p {
-        font-size: 20px;
-        font-style: oblique;
-        margin-bottom: 35px;
-        text-align: left;
+        border-color: #00848e;
     }
 </style>
 
@@ -78,10 +60,10 @@
 
 <div class="container mt-2 mb-4">
 
-    <h3 style="text-align: center;"> Gruppe erstellen</h3>
+    <h3 style="text-align: center;"> Gruppe erstellen Schritt 1</h3>
     <div class="col-sm-8 ml-auto mr-auto">
         <div class="col-sm-12 border  shadow rounded pt-2">
-            <form action="/addGroup">
+            <form action="/addFriendsToGroup">
                 <input name="uid" type="text" hidden value="<%= request.getParameter("uid")%>">
 
                 <div class="form-group">
@@ -91,39 +73,8 @@
 
                 </div>
                 <div class="form-group">
-                    <button id="addFreundeBtn" type="button" class="btn btn-primary" data-toggle="modal"
-                            data-target="#exampleModalCenter">
-                        Freunde einladen
-                    </button>
-
-                    <!-- Modal -->
-                    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
-                         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalCenterTitle">Zu dieser Gruppe einladen</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <p id="modal-p">Sende eine Einladung zu deinen Freunden</p>
-
-                                    <div id="friendsList"></div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Schliessen
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="form-group">
                     <input style="background-color: #00a1b2; color: white;" type="submit" name="creGroup"
-                           value="Erstellen"
+                           value="Weiter"
                            class="save btn btn-block ">
                 </div>
             </form>
@@ -132,62 +83,8 @@
 </div>
 
 <div class="added-friends"></div>
-<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-
 
 <script>
-
-    $(document).ready(function () {
-        var url_string = window.location.href; //window.location.href
-        var url = new URL(url_string);
-        var uid = url.searchParams.get("uid");
-
-        $.ajax({
-            type: "post",
-            data: {"uid": uid},
-            url: "/friends",
-            success: function (data) {
-                console.log(data.length);
-
-                for (var i = 0; i < data.length; i = i + 2) {
-                    $("#friendsList").append("<div class='fullFriendInfo container'><div class='row'><div class='col-sm'><p style='text-align: left'>" + data[i] + "</p></div> <div class='col-sm'><button onclick='sendeEinladung(this)' value='" + data[i + 1] + "' type='button' class='einladungBtn btn btn-primary'> <i class=\"fas fa-plus\"></i> </button></div></div></div>")
-                }
-            }
-        });
-
-
-    });
-
-    $('#addMem').focus(function () {
-        $("#friends").css("display", "block");
-    });
-
-    $("#addMem").focusout(function () {
-        $("#friends").hide();
-    });
-
-    function sendeEinladung(btn) {
-        var url_string = window.location.href; //window.location.href
-        var url = new URL(url_string);
-        var uid = url.searchParams.get("uid");
-        var groupName = $("#gName").val();
-        console.log(groupName)
-        var friendId = $(btn).val();
-
-        $.ajax({
-            type: "post",
-            data: {"uid": uid, "friendId": friendId, "groupName": groupName},
-            url: "/gruppeEinladung",
-            success: function (data) {
-
-                if (data === "gesendet") {
-                    $(btn).closest(".fullFriendInfo").empty().append("<p>Erfolgreich eingeladen <i class=\"fas fa-check\"></i></p>");
-                }
-
-            }
-        });
-    }
-
 
 </script>
 </body>

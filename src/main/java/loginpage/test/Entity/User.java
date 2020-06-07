@@ -80,6 +80,10 @@ public class User  implements Serializable {
     @JoinTable(name = "user_notification", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "notification_id"))
     private Set<Notification> notifications;
 
+    @ToString.Exclude
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(name = "group_user", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "gruppe_id"))
+    private Set<Gruppe> gruppen;
 
     public User(String vorname, String nachname, String password, String email, Date geburtsDatum, String geschlecht) {
         this.vorname = vorname;
@@ -232,5 +236,22 @@ public class User  implements Serializable {
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+
+    public Set<Notification> getNotifications() {
+        return notifications;
+    }
+
+    public void setNotifications(Set<Notification> notifications) {
+        this.notifications = notifications;
+    }
+
+    public Set<Gruppe> getGruppen() {
+        return gruppen;
+    }
+
+    public void setGruppen(Set<Gruppe> gruppen) {
+        this.gruppen = gruppen;
     }
 }

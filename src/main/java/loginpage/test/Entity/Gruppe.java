@@ -19,9 +19,6 @@ public class Gruppe {
     @Column(name = "gruppe_name")
     private String groupName;
 
-    @Column(name = "user_id")
-    private int userId;
-
     public int getGroupId() {
         return groupId;
     }
@@ -38,11 +35,4 @@ public class Gruppe {
         this.groupName = groupName;
     }
 
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
 }

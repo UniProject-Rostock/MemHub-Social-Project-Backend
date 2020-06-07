@@ -561,6 +561,13 @@
         .gedf-card {
             margin-top: 50px;
         }
+
+        .notification-text {
+            background-color: white;
+            padding: 20px 30px 20px 30px;
+            margin: 0 -15px 1px;
+            border-top: 1px solid #00a1b2;
+        }
     </style>
 </head>
 
@@ -590,7 +597,7 @@
             <div class="sidebar-header">
                 <div class="user-pic">
                     <img class="img-responsive img-rounded"
-                         src="https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg"
+                         src="img/profile.png"
                          alt="User picture">
                 </div>
                 <div class="user-info">
@@ -648,7 +655,7 @@
                                 </li>
                                 <c:forEach items="${gruppen}" var="g">
                                     <li>
-                                        <a class="gruppe" href="#">${g.groupName}</a>
+                                        <a class="gruppe" href="/group?gid=${g.groupId}&uid=<%= request.getParameter("uid")%>">${g.groupName}</a>
                                     </li>
                                 </c:forEach>
                             </ul>
@@ -699,7 +706,7 @@
 
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">Schliessen</button>
+                    <button style="background-color: #00a1b2; border-color: #00a1b2" type="button" class="btn btn-primary" data-dismiss="modal">Schliessen</button>
                 </div>
             </div>
         </div>
@@ -815,6 +822,7 @@
                         <div class="dropdown">
                             <button class="btn btn-link dropdown-toggle" type="button" id="gedf-drop1"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i style="color: #00a1b2;" class="fa fa-ellipsis-h"></i>
                             </button>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="gedf-drop1">
                                 <div class="h6 dropdown-header">Optionen</div>
@@ -1038,13 +1046,15 @@
                     $("#notification-counter").text(notifCounter);
 
                     $(".modal-body").empty();
-                   for(var i = 0; i < notifCounter; i++) {
-                       $(".modal-body").append("<p>" + data[i] + "</p>");
-                   }
-
+                    for (var i = 0; i < notifCounter; i++) {
+                        $(".modal-body").append("<p class='notification-text'><i class=\"far fa-bell fa-2x\"></i> " + data[i] + "</p>");
+                        var words = data[i].split(' ');
+                        console.log(words[0]);
+                        console.log(words[1]);
+                    }
                 }
             });
-        }, 1000);
+        }, 5000);
     });
 
 

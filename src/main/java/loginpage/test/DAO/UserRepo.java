@@ -22,4 +22,7 @@ public interface UserRepo extends JpaRepository<User, Integer> {
 
     @Query(value = "SELECT * FROM user u INNER JOIN user_role ur ON ur.user_id = u.uid WHERE ur.role_id = ? AND u.deleted = 0", nativeQuery = true)
     List<User> getOnlyAdmins(int role_id);
+
+    @Query(value = "SELECT * FROM loginpage.user_group as ug INNER JOIN loginpage.user as u ON ug.user_id = u.uid INNER JOIN loginpage.gruppe as g ON ug.gruppe_id = g.gruppe_id WHERE g.gruppe_id = ?", nativeQuery = true)
+    List<User> getMembersOfGroup(int gid);
 }

@@ -25,7 +25,6 @@ public class Notification {
     private String inhalt;
 
 
-
     public int getId() {
         return id;
     }

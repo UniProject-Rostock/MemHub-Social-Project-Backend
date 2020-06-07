@@ -69,6 +69,7 @@ public class UserController {
 
     @RequestMapping("/notifications")
     @ResponseBody
+    @PreAuthorize("hasRole('ROLE_USER')")
     public ResponseEntity sendNotifications(HttpServletRequest request) {
 
         int uid = Integer.parseInt(request.getParameter("uid"));
@@ -85,6 +86,7 @@ public class UserController {
 
     @RequestMapping("/friends")
     @ResponseBody
+    @PreAuthorize("hasRole('ROLE_USER')")
     public ResponseEntity friends(HttpServletRequest request) {
 
         int uid = Integer.parseInt(request.getParameter("uid"));
@@ -102,26 +104,25 @@ public class UserController {
 
     @RequestMapping("/gruppeEinladung")
     @ResponseBody
+    @PreAuthorize("hasRole('ROLE_USER')")
     public ResponseEntity gruppeEinladen(HttpServletRequest request) {
 
         int uid = Integer.parseInt(request.getParameter("uid"));
         String groupName = request.getParameter("groupName");
-
         int friendId = Integer.parseInt(request.getParameter("friendId"));
-        System.out.println(uid);
-        System.out.println(friendId);
-        User user = userRepo.findByUid(uid);
+        int gid = Integer.parseInt(request.getParameter("gid"));
 
-        System.out.println(user.getVorname() + " " + "hat Sie zu der Gruppe" + " " + groupName + " eingeladen");
+        User user = userRepo.findByUid(uid);
 
 
         Notification notification = new Notification();
         notification.setHeader("Gruppenanfrage");
-        notification.setInhalt(user.getVorname() + " " + "hat Sie zu der Gruppe" + " " + groupName + " eingeladen");
+        notification.setInhalt(user.getVorname() + " " + user.getNachname() + " " + "hat Sie zu der Gruppe" + " " + groupName + " hinzugefuegt");
         notificationRepo.save(notification);
 
-
         notificationRepo.addNotificationToUser(friendId, notification.getId());
+
+        gruppeRepo.addGroupToUser(friendId, gid);
 
         return ResponseEntity.status(HttpStatus.OK).body("gesendet");
     }

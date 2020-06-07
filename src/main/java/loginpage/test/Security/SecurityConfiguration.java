@@ -30,6 +30,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     public UserDetailsService userDetailsService() {
         return new UserDetailsServiceImpl();
     }
+
     @Bean
     public HttpFirewall allowUrlEncodedSlashHttpFirewall() {
         DefaultHttpFirewall firewall = new DefaultHttpFirewall();
@@ -58,13 +59,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
 
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests().antMatchers("/admin-ui/**").hasAnyRole("ADMIN")
                 .and()
-                .authorizeRequests().antMatchers("/user-ui/**").hasAnyRole( "USER")
+                .authorizeRequests().antMatchers("/user-ui/**").hasAnyRole("USER")
 
                 .and()
 
@@ -86,6 +86,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
                 .and()
 
+                .rememberMe().tokenValiditySeconds(2592000).userDetailsService(this.userDetailsService())
+                .and()
                 .csrf().disable();
     }
 
