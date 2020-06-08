@@ -568,6 +568,19 @@
             margin: 0 -15px 1px;
             border-top: 1px solid #00a1b2;
         }
+
+        .annehmeBtn {
+            background-color: #00a1b2;
+            border-color: #00a1b2;
+            height: 35px;
+            margin-left: 170px;
+            margin-bottom: 10px;
+        }
+
+        .annehmeBtn:hover {
+            background-color: #00848e;
+            border-color: #00848e;
+        }
     </style>
 </head>
 
@@ -655,7 +668,8 @@
                                 </li>
                                 <c:forEach items="${gruppen}" var="g">
                                     <li>
-                                        <a class="gruppe" href="/group?gid=${g.groupId}&uid=<%= request.getParameter("uid")%>">${g.groupName}</a>
+                                        <a class="gruppe"
+                                           href="/group?gid=${g.groupId}&uid=<%= request.getParameter("uid")%>">${g.groupName}</a>
                                     </li>
                                 </c:forEach>
                             </ul>
@@ -706,7 +720,9 @@
 
                 </div>
                 <div class="modal-footer">
-                    <button style="background-color: #00a1b2; border-color: #00a1b2" type="button" class="btn btn-primary" data-dismiss="modal">Schliessen</button>
+                    <button style="background-color: #00a1b2; border-color: #00a1b2" type="button"
+                            class="btn btn-primary" data-dismiss="modal">Schliessen
+                    </button>
                 </div>
             </div>
         </div>
@@ -1047,16 +1063,21 @@
 
                     $(".modal-body").empty();
                     for (var i = 0; i < notifCounter; i++) {
-                        $(".modal-body").append("<p class='notification-text'><i class=\"far fa-bell fa-2x\"></i> " + data[i] + "</p>");
-                        var words = data[i].split(' ');
-                        console.log(words[0]);
-                        console.log(words[1]);
+                        if (data[i].includes("Freundschaft")) {
+                            $(".modal-body").append("<p class='notification-text'><i class=\"far fa-bell fa-2x\"></i> " + data[i] + "</p> <button onclick='annehmeEinladung(this)' value='" + 123 + "' type='button' class='annehmeBtn btn btn-primary'>Annehmen</button>");
+
+                        } else {
+                            $(".modal-body").append("<p class='notification-text'><i class=\"far fa-bell fa-2x\"></i> " + data[i] + "</p>");
+                        }
                     }
                 }
             });
         }, 5000);
     });
 
+    function annehmeEinladung(btn) {
+        alert("angenommen")
+    }
 
 </script>
 </body>

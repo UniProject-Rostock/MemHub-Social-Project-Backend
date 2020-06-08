@@ -7,6 +7,7 @@ import lombok.ToString;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.Set;
 
 @Entity
 @Table(name = "beitrag")
@@ -17,20 +18,16 @@ public class Beitrag {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "beitrag_id")
-    public int beitrag_id;
+    private int beitrag_id;
 
     @Column(name = "beitrag_inhalt")
-    public String beitragsInhalt;
+    private String beitragsInhalt;
 
     @Column(name = "beitrag_sicherheit")
-    public String beitragSicherheit;
+    private String beitragSicherheit;
 
     @Column(name = "beitrag_zeit")
-    public Date beitragZeit;
-
-    @ToString.Exclude
-    @ManyToOne(fetch = FetchType.LAZY)
-    public User user;
+    private Date beitragZeit;
 
     public int getBeitrag_id() {
         return beitrag_id;
@@ -62,14 +59,6 @@ public class Beitrag {
 
     public void setBeitragZeit(Date beitragZeit) {
         this.beitragZeit = beitragZeit;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 
 }

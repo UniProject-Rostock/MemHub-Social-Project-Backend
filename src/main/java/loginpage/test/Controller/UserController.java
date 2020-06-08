@@ -1,10 +1,7 @@
 package loginpage.test.Controller;
 
 import loginpage.test.DAO.*;
-import loginpage.test.Entity.Beitrag;
-import loginpage.test.Entity.Gruppe;
-import loginpage.test.Entity.Notification;
-import loginpage.test.Entity.User;
+import loginpage.test.Entity.*;
 import loginpage.test.Service.EmailService;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +41,9 @@ public class UserController {
     NotificationRepo notificationRepo;
 
     @Autowired
+    FreundschaftRepo freundschaftRepo;
+
+    @Autowired
     EmailService emailService;
 
     int id = LoginController.id;
@@ -61,10 +61,37 @@ public class UserController {
 
         List<Beitrag> postsOfUser = beitragRepo.getAllPostsFromUser(uid);
 
-
         model.addAttribute("beitrag", postsOfUser);
 
+        List<User> usersInfosInBeitrag = userRepo.getAllPostsFromUserInUser(uid);
+
+        model.addAttribute("userBeitrag", usersInfosInBeitrag);
+
+        System.out.println(postsOfUser);
+
         return "user-ui/user-menu.jsp";
+    }
+
+    @RequestMapping("/freund-profile")
+    @PreAuthorize("hasRole('ROLE_USER')")
+    public String profileOfFriend(@RequestParam("fid") int fid, @RequestParam("uid") int uid, Model model) throws Exception {
+
+        User user = userRepo.findByUid(fid);
+
+        List<User> userList2 = new ArrayList<>();
+        userList2.add(user);
+
+        model.addAttribute("user", userList2);
+
+        List<Beitrag> postsOfFriend = beitragRepo.getAllPostsFromUser(fid);
+
+        model.addAttribute("beitrag", postsOfFriend);
+
+        List<User> usersInfosInBeitrag = userRepo.getAllPostsFromUserInUser(fid);
+
+        model.addAttribute("userBeitrag", usersInfosInBeitrag);
+
+        return "user-ui/friend-profile.jsp";
     }
 
     @RequestMapping("/notifications")
@@ -125,6 +152,60 @@ public class UserController {
         gruppeRepo.addGroupToUser(friendId, gid);
 
         return ResponseEntity.status(HttpStatus.OK).body("gesendet");
+    }
+
+    @RequestMapping("/freundschaftSenden")
+    @ResponseBody
+    @PreAuthorize("hasRole('ROLE_USER')")
+    public ResponseEntity freundschaftSenden(HttpServletRequest request) {
+
+        int uid = Integer.parseInt(request.getParameter("uid"));
+        int fid = Integer.parseInt(request.getParameter("fid"));
+
+
+        User user = userRepo.findByUid(uid);
+
+        User friend = userRepo.findByUid(fid);
+
+        Notification notification = new Notification();
+        notification.setHeader("Freundschaftsanfrage");
+        notification.setInhalt(user.getVorname() + " " + user.getNachname() + " " + "hat Ihnen eine Freundschaftsanfrage gesendet");
+        notificationRepo.save(notification);
+
+        notificationRepo.addNotificationToUser(fid, notification.getId());
+
+        Freundschaft freundschaft = new Freundschaft();
+        freundschaft.setFreundId(fid);
+        freundschaft.setUserId(uid);
+        freundschaft.setStatus("Gesendet");
+        freundschaftRepo.save(freundschaft);
+
+        System.out.println("hell oldu");
+        return ResponseEntity.status(HttpStatus.OK).body("gesendet");
+    }
+
+    @RequestMapping("/checkFreundschaftsStatus")
+    @ResponseBody
+    @PreAuthorize("hasRole('ROLE_USER')")
+    public ResponseEntity checkFreundschaftsStatus(HttpServletRequest request) {
+
+        int uid = Integer.parseInt(request.getParameter("uid"));
+        int fid = Integer.parseInt(request.getParameter("fid"));
+
+
+        Freundschaft freundschaft = freundschaftRepo.checkFreundschaftsStatus(uid, fid);
+
+        String status = freundschaft.getStatus();
+
+        String message = null;
+
+        if (status.equals("Gesendet")) {
+            message = "gesendet";
+        } else if (status.equals("Angenommen")) {
+            message = "angenommen";
+        }
+
+        return ResponseEntity.status(HttpStatus.OK).body(message);
     }
 
 

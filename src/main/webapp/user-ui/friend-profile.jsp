@@ -14,19 +14,19 @@
           crossorigin="anonymous">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="css/user-profile.css">
+    <link rel="stylesheet" type="text/css" href="/css/user-profile.css">
     <script src="https://kit.fontawesome.com/258052aeff.js"
             crossorigin="anonymous"></script>
     <title>User profile</title>
     <style>
-        #ta1, #ta2, #ta3 {
+        #ta1, #ta2 {
 
             text-decoration: none;
             position: relative;
             transition: color 0.1s, background-color 0.1s;
         }
 
-        #ta1::before, #ta2::before, #ta3::before {
+        #ta1::before, #ta2::before {
             content: '';
             display: block;
             position: absolute;
@@ -58,15 +58,32 @@
             margin-right: 20px;
         }
 
-        #ta3:hover::before, #ta3:focus::before {
-            transform-origin: left top;
-            transform: scale(1.2, 1);
-            margin-left: 20px;
-            margin-right: 20px;
+        #send-friendshipBtn {
+            background-color: #00a1b2;
+            border-color: #00a1b2;
+            margin-right: -125px;
+            margin-top: 20px;
         }
 
-        #saveBtn:hover {
+        #sent-friendshipBtn {
+            background-color: #00a1b2;
+            border-color: #00a1b2;
+            margin-right: -155px;
+            margin-top: 20px;
+            cursor: auto;
+        }
+
+        #accepted-friendshipBtn {
+            background-color: #00a1b2;
+            border-color: #00a1b2;
+            margin-right: -155px;
+            margin-top: 20px;
+            cursor: auto;
+        }
+
+        #send-friendshipBtn:hover {
             background-color: #00848e;
+            border-color: #00848e;
         }
 
         .card-header {
@@ -131,7 +148,6 @@
 
 <div class="wrapper">
     <div class="container">
-
         <div class="wraper">
             <div class="row">
                 <div class="col-sm-12">
@@ -145,19 +161,8 @@
                         </div>
                         <div class="col-lg-6 col-md-3 col-sm-3 hidden-xs">
                             <div class="pull-right">
-                                <div style="margin-top: 20px" class="dropdown">
-                                    <a style=" background-color: #00a1b2; color: white; margin-right: -110px;"
-                                       data-toggle="dropdown"
-                                       class="dropdown-toggle btn-rounded btn  waves-effect waves-light" href="#"><i
-                                            class="fas fa-camera"></i> Bild aktualisieren</a>
-                                    <ul class="dropdown-menu dropdown-menu-right" role="menu">
-                                        <li><a type="file" class="dropdown-item waves-effect waves-light"
-                                               href="/changePhoto?uid=<%=request.getParameter("uid")%>">Bild
-                                            aktualisieren</a></li>
-                                        <li><a class="dropdown-item waves-effect waves-light" href="#">Bild loeschen</a>
-                                        </li>
-                                    </ul>
-                                </div>
+                                <button onclick="sendeEinladung(this)" id="send-friendshipBtn" type="button" class="btn btn-primary">Freund/in hinzufuegen <i class="fas fa-user-plus"></i></button>
+
                             </div>
                         </div>
                     </div>
@@ -178,14 +183,6 @@
                             <a id="ta2" href="#profile-2" data-toggle="tab" aria-expanded="false">
                                 <span class="visible-xs"><i style="color:#00a1b2;" class="far fa-keyboard"></i></span>
                                 <span style="color: #00a1b2; font-weight: bold;" class="hidden-xs">Beitraege</span>
-                            </a>
-                        </li>
-
-                        </li>
-                        <li class="tab" style="width: 25%;">
-                            <a id="ta3" href="#settings-2" data-toggle="tab" aria-expanded="false">
-                                <span class="visible-xs"><i style="color:#00a1b2;" class="fa fa-cog"></i></span>
-                                <span style="color: #00a1b2; font-weight: bold;" class="hidden-xs">Einstellungen</span>
                             </a>
                         </li>
 
@@ -267,7 +264,7 @@
                                 <div class="panel-body">
                                     <!--- \\\\\\\Post-->
 
-                                    <c:forEach items="${userBeitrag}" var="b">
+                                    <c:forEach items="${beitrag}" var="b">
                                         <div class="card gedf-card">
                                             <div class="card-header">
                                                 <div class="d-flex justify-content-between align-items-center">
@@ -276,8 +273,9 @@
                                                             <img class="rounded-circle" width="45" src="img/profile.png">
                                                         </div>
                                                         <div class="ml-2">
-                                                                <p id="user-info-in-beitrag">${b.vorname} ${b.nachname}</p>
-
+                                                            <c:forEach items="${userBeitrag}" var="ub">
+                                                                <p id="user-info-in-beitrag">${ub.vorname} ${ub.nachname}</p>
+                                                            </c:forEach>
                                                         </div>
                                                     </div>
                                                     <div>
@@ -302,8 +300,9 @@
                                             </div>
                                             <div class="card-body">
 
-                                                <div class="beitragZeit text-muted h7 mb-2"></div>
+                                                <div class="beitragZeit text-muted h7 mb-2"> ${b.beitragZeit}</div>
                                                 <p class="card-text">
+                                                        ${b.beitragsInhalt}
                                                 </p>
                                             </div>
                                         </div>
@@ -324,122 +323,6 @@
                             </div>
                             <!-- Personal-Information -->
                         </div>
-
-                        <div class="tab-pane" id="settings-2">
-                            <!-- Personal-Information -->
-                            <div class="panel panel-default panel-fill">
-                                <div class="panel-heading">
-                                    <h3 style="font-size: 20px" class="panel-title">Konto bearbeiten</h3>
-                                </div>
-                                <div class="panel-body">
-                                    <c:forEach items="${user}" var="u">
-                                        <form action="/editUser" role="form">
-                                            <input name="uid" value="<%= request.getParameter("uid")%>" type="text"
-                                                   hidden>
-                                            <div class="form-group">
-                                                <label for="firstName"><strong>Vorname</strong></label>
-                                                <input name="vorname" value="${u.vorname}" style="height: 50px;"
-                                                       type="text" id="firstName" class="form-control">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="lastName"><strong>Nachname</strong></label>
-                                                <input name="nachname" value="${u.nachname}" style="height: 50px;"
-                                                       type="text" id="lastName" class="form-control">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="email"><strong>Email-Adresse</strong></label>
-                                                <input name="email" value="${u.email}" style="height: 50px;"
-                                                       type="email" id="email" class="form-control">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="wohnort"><strong>Wohnort</strong></label>
-                                                <input name="wohnort" value="${u.wohnort}" style="height: 50px;"
-                                                       type="text" id="wohnort" class="form-control">
-                                            </div>
-                                            <div class="form-group">
-                                                <div class="form-group">
-                                                    <label for="beziehungsstatus"><strong>Beziehungsstatus</strong></label>
-                                                    <select name="beziehungsstatus" class="form-control"
-                                                            id="beziehungsstatus">
-                                                        <option value="Single">Single</option>
-                                                        <option value="In einer Beziehung">In einer Beziehung</option>
-                                                        <option value="Verlobt">Verlobt</option>
-                                                        <option value="Verheiratet">Verheiratet</option>
-                                                        <option value="Getrennt">Getrennt</option>
-                                                        <option value="Geschieden">Geschieden</option>
-                                                        <option value="Verwitwet">Verwitwet</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <input type="text" hidden id="beziehungsstatusText"
-                                                   value="${u.beziehungsstatus}">
-                                            <div class="form-group">
-                                                <label for="aboutMe"><strong>Beschreibung</strong></label>
-                                                <textarea name="beschreibung" style="height: 125px" id="aboutMe"
-                                                          class="form-control">${u.beschreibung}</textarea>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="password1"><strong>Altes Passwort</strong></label>
-                                                <input onkeyup="checkPass()" name="old-password" style="height: 50px;"
-                                                       type="password"
-                                                       id="password1" class="form-control">
-                                            </div>
-                                            <p style="display: none; color: red" id="oldPassWarning">Falsche
-                                                Eingabe!</p>
-                                            <div class="form-group">
-                                                <label for="password2"><strong>Neues Passwort</strong></label>
-                                                <input oninvalid="checkPass1(this)" oninput="checkPass1(this)"
-                                                       onkeyup="checkPasses();" name="new-password"
-                                                       style="height: 50px;" type="password"
-                                                       id="password2" class="form-control">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="rePassword"><strong>Passwort wiederholen</strong></label>
-                                                <input oninvalid="checkPass1(this)" oninput="checkPass1(this)"
-                                                       onkeyup="checkPasses();" style="height: 50px;" type="password"
-                                                       id="rePassword"
-                                                       class="form-control">
-                                            </div>
-                                            <p style="display: none; color: red" id="passwordWarning">Passwörter stimmen
-                                                nicht überein</p>
-
-                                            <div class="form-group">
-                                                <input hidden value="${u.geschlecht}" id="geschlecht">
-                                                <label><strong>Geschlecht</strong></label>
-                                                <div class="col-md-8 ">
-                                                    <label>
-                                                        <input id="maennlich" value="maennlich" type="radio"
-                                                               name="geschlecht" checked>
-                                                        Maennlich
-                                                    </label>
-                                                    <label>
-                                                        <input id="weiblich" value="weiblich" type="radio"
-                                                               name="geschlecht">
-                                                        Weiblich
-                                                    </label>
-                                                    <label>
-                                                        <input id="divers" value="divers" type="radio"
-                                                               name="geschlecht">
-                                                        Divers
-                                                    </label>
-                                                </div>
-                                            </div>
-
-                                            <button id="saveBtn" style="background-color: #00a1b2; color: white;"
-                                                    class="btn  waves-effect waves-light w-md" type="submit">Speichern
-                                            </button>
-                                            <hr>
-                                            <a href="/deleteYourProfile?uid=<%= request.getParameter("uid")%>"
-                                               type="button" class="btn btn-danger">Konto loeschen</a>
-
-
-                                        </form>
-                                    </c:forEach>
-
-                                </div>
-                            </div>
-                            <!-- Personal-Information -->
-                        </div>
                     </div>
                 </div>
             </div>
@@ -454,10 +337,9 @@
 </div>
 
 
-<!-- Optional JavaScript -->
-<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+<script
+        src="https://code.jquery.com/jquery-3.5.1.min.js"
+        integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
         crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
         integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
@@ -469,20 +351,24 @@
 
 <script>
     $(document).ready(function () {
-        var beziehungsstatus = $("#beziehungsstatusText").val();
-        $('#beziehungsstatus option[value="' + beziehungsstatus + '"]').prop("selected", true);
+        var url_string = window.location.href; //window.location.href
+        var url = new URL(url_string);
+        var uid = url.searchParams.get("uid");
+        var fid = url.searchParams.get("fid");
 
+        $.ajax({
+            type: "post",
+            data: {"uid": uid, "fid": fid},
+            url: "/checkFreundschaftsStatus",
+            success: function (data) {
 
-        var gender = $("#geschlecht").val();
-        if (gender === "maennlich") {
-            $("#maennlich").prop("checked", true);
-
-        } else if (gender === "weiblich") {
-            $("#weiblich").prop("checked", true);
-
-        } else {
-            $("#divers").prop("checked", true);
-        }
+                if (data === "gesendet") {
+                    $(".pull-right").empty().append("<button disabled id=\"sent-friendshipBtn\" type=\"button\" class=\"btn btn-primary\">Freundschaftsanfrage gesendet <i class=\"fas fa-user-check\"></i></button>\n");
+                } else if(data === "angenommen") {
+                    $(".pull-right").empty().append("<button disabled id=\"accepted-friendshipBtn\" type=\"button\" class=\"btn btn-primary\">In der Freundschaftsliste <i class=\"fas fa-user-check\"></i></button>\n");
+                }
+            }
+        });
 
         const getAge = birthDate => Math.floor((new Date() - new Date(birthDate).getTime()) / 3.15576e+10);
         var birthDate = $("#age").text();
@@ -510,7 +396,31 @@
             $(this).text(beitragZeit).prepend("<i class=\"fa fa-clock-o\"></i> ");
         });
 
+
+
     });
+
+
+
+    function sendeEinladung(btn) {
+        var url_string = window.location.href; //window.location.href
+        var url = new URL(url_string);
+        var uid = url.searchParams.get("uid");
+        var fid = url.searchParams.get("fid");
+
+        $.ajax({
+            type: "post",
+            data: {"uid": uid, "fid": fid},
+            url: "/freundschaftSenden",
+            success: function (data) {
+
+                if (data === "gesendet") {
+                    alert("getdi")
+                    $(".pull-right").empty().append("<button disabled id=\"sent-friendshipBtn\" type=\"button\" class=\"btn btn-primary\">Freundschaftsanfrage gesendet <i class=\"fas fa-user-check\"></i></button>\n");
+                }
+            }
+        });
+    }
 </script>
 
 </body>

@@ -8,6 +8,7 @@
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <!------ Include the above in your HEAD tag ---------->
+    <link rel="shortcut icon" type="image/png" href="img/logo.png">
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -93,7 +94,7 @@
                             <ul>
                                 <c:forEach items="${members}" var="m">
                                     <li>
-                                        <a class="gruppe" href="/profile?fid=${m.groupId}&uid=<%= request.getParameter("uid")%>">${m.vorname} ${m.nachname}</a>
+                                        <a class="gruppe" href="/freund-profile?fid=${m.uid}&uid=<%= request.getParameter("uid")%>">${m.vorname} ${m.nachname}</a>
                                     </li>
                                 </c:forEach>
                             </ul>

@@ -3,10 +3,13 @@ package loginpage.test.Controller;
 import loginpage.test.DAO.BeitragRepo;
 import loginpage.test.DAO.RoleRepo;
 import loginpage.test.DAO.UserRepo;
+import loginpage.test.Entity.Beitrag;
 import loginpage.test.Entity.User;
 import loginpage.test.Service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -15,6 +18,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
@@ -195,5 +199,23 @@ public class AdminController {
         }
 
         return "redirect:/users";
+    }
+
+    @RequestMapping("/userPostsForAdmin")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @ResponseBody
+    public ResponseEntity getPostsOfUserForAdmin(HttpServletRequest request) {
+
+        int uid = Integer.parseInt(request.getParameter("uid"));
+
+        List<Beitrag> beitrags = beitragRepo.getAllPostsFromUser(uid);
+        List<String> result = new ArrayList<>();
+
+        for (Beitrag beitrag : beitrags) {
+            result.add(beitrag.getBeitragsInhalt());
+        }
+
+
+        return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 }

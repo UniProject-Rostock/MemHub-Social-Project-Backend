@@ -41,7 +41,6 @@ public class BeitragController {
         Beitrag beitrag = new Beitrag();
         beitrag.setBeitragsInhalt(inhalt);
         beitrag.setBeitragZeit(date);
-        beitrag.setUser(userRepo.findByUid(uid));
         beitragRepo.save(beitrag);
 
         return "redirect:/startseite?uid=" + uid;

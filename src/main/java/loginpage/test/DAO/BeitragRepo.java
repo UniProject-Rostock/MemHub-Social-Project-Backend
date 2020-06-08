@@ -17,6 +17,6 @@ public interface BeitragRepo extends JpaRepository<Beitrag, Integer> {
     void insertUserBeitrag(int uid, int beitragId);
 
 
-    @Query(value = "SELECT * FROM loginpage.beitrag as b INNER JOIN loginpage.user as u ON b.user_uid = u.uid WHERE u.uid = ?", nativeQuery = true)
+    @Query(value = "SELECT * FROM loginpage.beitrag_user as ub INNER JOIN loginpage.user as u ON ub.user_id = u.uid INNER JOIN loginpage.beitrag as b ON ub.beitrag_id = b.beitrag_id WHERE u.uid = ?", nativeQuery = true)
     List<Beitrag> getAllPostsFromUser(int uid);
 }

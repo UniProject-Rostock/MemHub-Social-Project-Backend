@@ -72,7 +72,8 @@ public class User  implements Serializable {
     private Set<Role> roles;
 
     @ToString.Exclude
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", orphanRemoval = true)
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "user_beitrag", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "beitrag_id"))
     private Set<Beitrag> beitrags;
 
     @ToString.Exclude
@@ -254,4 +255,6 @@ public class User  implements Serializable {
     public void setGruppen(Set<Gruppe> gruppen) {
         this.gruppen = gruppen;
     }
+
+
 }

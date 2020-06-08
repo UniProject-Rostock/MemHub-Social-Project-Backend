@@ -70,10 +70,37 @@
                             <td class="role">${u.roles}</td>
 
                             <td title="Posts of user">
-                                <a class="environments btn btn-light"
-                                   href="user-posts?uid=${u.uid}"
-                                   type="submit">See posts of user <i
-                                        class="fas fa-angle-double-right"></i></a></td>
+                                <a data-toggle="modal" data-target="#exampleModalCenter" class="environments btn btn-light"
+                                   href="#"
+                                   type="button">See posts of user <i
+                                        class="fas fa-angle-double-right"></i></a>
+                                <!-- Modal -->
+                                <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalCenterTitle">Modal title</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                ...
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                <button type="button" class="btn btn-primary">Save changes</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </td>
+
+
+
+
+
                             <td class="blocked">${u.blocked}</td>
 
                             <td>
@@ -116,6 +143,16 @@
         $('#table_id').DataTable({
             language: {search: ""},
             paging: false
+        });
+
+        $.ajax({
+            type: "post",
+            data: {},
+            url: "/userPostsForAdmin",
+            success: function (data) {
+                console.log(data.length);
+
+            }
         });
     });
 
