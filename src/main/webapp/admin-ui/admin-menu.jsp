@@ -91,31 +91,6 @@
                             </ul>
                         </div>
                     </li>
-                    <li class="sidebar-dropdown">
-                        <a href="#">
-                            <i class="far fa-gem"></i>
-                            <span>Components</span>
-                        </a>
-                        <div class="sidebar-submenu">
-                            <ul>
-                                <li>
-                                    <a href="#">General</a>
-                                </li>
-                                <li>
-                                    <a href="#">Panels</a>
-                                </li>
-                                <li>
-                                    <a href="#">Tables</a>
-                                </li>
-                                <li>
-                                    <a href="#">Icons</a>
-                                </li>
-                                <li>
-                                    <a href="#">Forms</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
                     <li class="header-menu">
                         <span>Extra</span>
                     </li>
@@ -132,28 +107,20 @@
         </div>
         <!-- sidebar-content  -->
         <div class="sidebar-footer">
-            <a href="#">
-                <i class="fa fa-envelope"></i>
-                <span class="badge badge-pill badge-success notification">7</span>
-            </a>
-            <a href="#">
-                <i class="fa fa-cog"></i>
-            </a>
             <a href="/doLogout">
-                <i class="fa fa-power-off"></i>
+                <i class="fas fa-sign-out-alt"></i>
             </a>
         </div>
     </nav>
     <!-- sidebar-wrapper  -->
     <main class="page-content">
         <div class="container-fluid">
-            <h2>Pro Sidebar</h2>
+            <h2>Admin Control for the page Memhub</h2>
             <hr>
             <div class="row">
                 <div class="form-group col-md-12">
-                    <p>This is a responsive sidebar template with dropdown menu based on bootstrap 4 framework.</p>
-                    <p> You can find the complete code on <a href="https://github.com/azouaoui-med/pro-sidebar-template" target="_blank">
-                        Github</a>, it contains more themes and background image option</p>
+                    <p>This page is used by administrators to control users and administrators and to monitor their posts..</p>
+
                 </div>
             </div>
         </div>

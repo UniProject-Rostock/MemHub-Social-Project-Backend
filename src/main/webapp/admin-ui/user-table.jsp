@@ -26,6 +26,23 @@
     <script src="https://kit.fontawesome.com/258052aeff.js"
             crossorigin="anonymous"></script>
     <link type="text/css" rel="stylesheet" href="/css/user-table.css">
+
+    <style>
+        .posts {
+            color: #00a1b2;
+            border-color: #00a1b2;
+            background-color: #FFFFFF;
+            -webkit-box-shadow: none;
+            -moz-box-shadow: none;
+            box-shadow: none;
+        }
+
+        .posts:hover {
+            background-color: #f8f8f8;
+            color: #00a1b2;
+            border-color: #00a1b2;
+        }
+    </style>
 </head>
 <body>
 <div class="loader">
@@ -38,7 +55,8 @@
 
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li title="Menu" class="breadcrumb-item"><a style="font-size: 19px" href="/admin-menu" id="home"><i class="fas fa-angle-double-left"></i> Menu</a>
+            <li title="Menu" class="breadcrumb-item"><a style="font-size: 19px" href="/admin-menu" id="home"><i
+                    class="fas fa-angle-double-left"></i> Menu</a>
             </li>
         </ol>
     </nav>
@@ -49,11 +67,11 @@
                 <table id="table_id" class="display">
                     <thead>
                     <tr>
+                        <th>UID</th>
                         <th>Name</th>
                         <th>Surname</th>
                         <th>Email</th>
                         <th>Role</th>
-                        <th>Posts</th>
                         <th>Blocked</th>
                         <th>Contact user</th>
                         <th>Block user</th>
@@ -63,43 +81,12 @@
                     <tbody>
                     <c:forEach items="${users}" var="u">
                         <tr class="mainTr">
-                            <td>${u.vorname}</td>
-                            <td>${u.nachname}</td>
-                            <td>${u.email}</td>
+                            <td class="uid">${u.uid}</td>
+                            <td class="vorname">${u.vorname}</td>
+                            <td class="nachname">${u.nachname}</td>
+                            <td class="email">${u.email}</td>
 
                             <td class="role">${u.roles}</td>
-
-                            <td title="Posts of user">
-                                <a data-toggle="modal" data-target="#exampleModalCenter" class="environments btn btn-light"
-                                   href="#"
-                                   type="button">See posts of user <i
-                                        class="fas fa-angle-double-right"></i></a>
-                                <!-- Modal -->
-                                <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-centered" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalCenterTitle">Modal title</h5>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                ...
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                <button type="button" class="btn btn-primary">Save changes</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </td>
-
-
-
-
 
                             <td class="blocked">${u.blocked}</td>
 
@@ -145,15 +132,6 @@
             paging: false
         });
 
-        $.ajax({
-            type: "post",
-            data: {},
-            url: "/userPostsForAdmin",
-            success: function (data) {
-                console.log(data.length);
-
-            }
-        });
     });
 
     $(document).ready(function () {
@@ -178,11 +156,6 @@
 
 
     var rowCount = $('#table_id >tbody >tr').length;
-
-    $(".environments").click(function () {
-        document.getElementsByClassName("loader")[0].style.display = "block";
-        document.getElementsByClassName("whole-page")[0].style.display = "none";
-    });
 
     window.onbeforeunload = function (e) {
         document.getElementsByClassName("loader")[0].style.display = "block";

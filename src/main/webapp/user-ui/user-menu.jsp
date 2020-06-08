@@ -273,10 +273,11 @@
                                                 <div class="d-flex justify-content-between align-items-center">
                                                     <div class="d-flex justify-content-between align-items-center">
                                                         <div class="mr-2">
-                                                            <img class="rounded-circle" width="45" src="img/profile.png">
+                                                            <img class="rounded-circle" width="45"
+                                                                 src="img/profile.png">
                                                         </div>
                                                         <div class="ml-2">
-                                                                <p id="user-info-in-beitrag">${b.vorname} ${b.nachname}</p>
+                                                            <p id="user-info-in-beitrag">${b.vorname} ${b.nachname}</p>
 
                                                         </div>
                                                     </div>
@@ -290,9 +291,13 @@
                                                             </button>
                                                             <div class="dropdown-menu dropdown-menu-right"
                                                                  aria-labelledby="gedf-drop2">
-                                                                <div style="text-align: center; font-size: 17px; margin-bottom: 15px" class="h6 dropdown-header">Optionen</div>
-                                                                <a class="beitrag-optionen" href="#">Aktualisieren <i class="far fa-edit"></i></a>
-                                                                <a class="beitrag-optionen" href="#">Loeschen <i class="far fa-trash-alt"></i></a>
+                                                                <div style="text-align: center; font-size: 17px; margin-bottom: 15px"
+                                                                     class="h6 dropdown-header">Optionen
+                                                                </div>
+                                                                <a class="beitrag-optionen" href="#">Aktualisieren <i
+                                                                        class="far fa-edit"></i></a>
+                                                                <a onclick="deletePost(this)" class="beitrag-optionen">Loeschen <i
+                                                                        class="far fa-trash-alt"></i></a>
 
                                                             </div>
                                                         </div>
@@ -511,6 +516,17 @@
         });
 
     });
+
+    function deletePost(btn) {
+        $.ajax({
+            type: "post",
+            data: {},
+            url: "/deletePost",
+            success: function (data) {
+                location.reload();
+            }
+        });
+    }
 </script>
 
 </body>

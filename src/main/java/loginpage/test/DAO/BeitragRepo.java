@@ -13,7 +13,7 @@ public interface BeitragRepo extends JpaRepository<Beitrag, Integer> {
 
     @Modifying
     @Transactional
-    @Query(value = "INSERT INTO user_beitrag(user_id, beitrag_id) VALUES(?,?)", nativeQuery = true)
+    @Query(value = "INSERT INTO beitrag_user(user_id, beitrag_id) VALUES(?,?)", nativeQuery = true)
     void insertUserBeitrag(int uid, int beitragId);
 
 

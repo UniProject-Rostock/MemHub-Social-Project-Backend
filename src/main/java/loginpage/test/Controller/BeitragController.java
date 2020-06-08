@@ -4,15 +4,21 @@ import loginpage.test.DAO.BeitragRepo;
 import loginpage.test.DAO.RoleRepo;
 import loginpage.test.DAO.UserRepo;
 import loginpage.test.Entity.Beitrag;
+import loginpage.test.Entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -43,13 +49,18 @@ public class BeitragController {
         beitrag.setBeitragZeit(date);
         beitragRepo.save(beitrag);
 
+        beitragRepo.insertUserBeitrag(uid, beitrag.getBeitrag_id());
+
         return "redirect:/startseite?uid=" + uid;
     }
 
-    @RequestMapping("")
-    public String getPostsOfUser() {
+    @RequestMapping("/deletePost")
+    @ResponseBody
+    @PreAuthorize("hasRole('ROLE_USER')")
+    public ResponseEntity deletePost(HttpServletRequest request) {
 
 
-        return "";
+        return ResponseEntity.status(HttpStatus.OK).body("");
     }
+
 }

@@ -378,10 +378,27 @@ public class UserController {
 
 
         List<Gruppe> gruppen = gruppeRepo.groupsOfUser(uid);
-
         model.addAttribute("gruppen", gruppen);
 
+        List<User> usersInfosInBeitrag = userRepo.getAllPostsFromUserInUser(uid);
+
+        model.addAttribute("beitrags", usersInfosInBeitrag);
+
         return "user-ui/startseite.jsp";
+    }
+
+    @RequestMapping("/identifyUser")
+    @PreAuthorize("hasRole('ROLE_USER')")
+    @ResponseBody
+    public ResponseEntity identifyUser(HttpServletRequest request) {
+
+        int uid = Integer.valueOf(request.getParameter("uid"));
+
+        User user = userRepo.findByUid(uid);
+
+        String fullName = user.getVorname() + " " + user.getNachname();
+
+        return ResponseEntity.status(HttpStatus.OK).body(fullName);
     }
 
     @PostMapping("/forgotpassword")

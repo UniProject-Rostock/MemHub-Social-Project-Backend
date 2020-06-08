@@ -569,11 +569,16 @@
             border-top: 1px solid #00a1b2;
         }
 
+        .ablehnenBtn {
+            height: 35px;
+            margin-bottom: 10px;
+        }
+
         .annehmeBtn {
             background-color: #00a1b2;
             border-color: #00a1b2;
             height: 35px;
-            margin-left: 170px;
+            margin-left: 130px;
             margin-bottom: 10px;
         }
 
@@ -581,24 +586,27 @@
             background-color: #00848e;
             border-color: #00848e;
         }
+
+        #user-info-in-beitrag {
+            margin-bottom: 20px;
+            margin-left: 7px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .mr-2 {
+            margin-top: -30px;
+            margin-left: -10px;
+        }
+        .body2 {
+            height: 150px;
+        }
     </style>
 </head>
 
-<body>
-
-<div class="container mt-2 mb-4">
-    <c:if test="${not empty successGruppeErstellt}">
-        <div class="alert alert-success alert-dismissible" role="alert">
-            <button type="button" onclick="this.parentNode.parentNode.removeChild(this.parentNode);" class="close"
-                    data-dismiss="alert"><span aria-hidden="true">x</span><span class="sr-only">Close</span></button>
-            <strong><i class="fa fa-success"></i> Erfolgreich!</strong>
-            <p id="alert" style="font-family: sans-serif; ">Die Gruppe wurde erfolgreich erstellt.</p>
-        </div>
-    </c:if>
-</div>
+<body onload="getNotifications()">
 
 <div class="page-wrapper chiller-theme toggled">
-
     <nav id="sidebar" class="sidebar-wrapper">
         <div class="sidebar-content">
             <div class="sidebar-brand">
@@ -615,7 +623,7 @@
                 </div>
                 <div class="user-info">
                     <a style="color: white" href="/profile?uid=<%= request.getParameter("uid")%>"
-                       class="user-name">Jhon</a>
+                       class="user-name"></a>
                     <span class="user-role">Benutzer</span>
                     <span class="user-status">
               <i class="fa fa-circle"></i>
@@ -623,20 +631,7 @@
             </span>
                 </div>
             </div>
-            <!-- sidebar-header  -->
-            <div class="sidebar-search">
-                <div>
-                    <div class="input-group">
-                        <input type="text" class="form-control search-menu" placeholder="Search...">
-                        <div class="input-group-append">
-                <span class="input-group-text">
-                  <i class="fa fa-search" aria-hidden="true"></i>
-                </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- sidebar-search  -->
+
             <div class="sidebar-menu">
                 <ul>
 
@@ -697,7 +692,7 @@
                 </a>
 
                 <a href="/doLogout">
-                    <i class="fa fa-power-off"></i>
+                    <i class="fas fa-sign-out-alt"></i>
                 </a>
             </div>
         </div>
@@ -798,202 +793,42 @@
                                             Teilen
                                         </button>
                                     </div>
-                                    <div class="btn-group">
-
-                                    </div>
-                                    <div class="btn-group">
-                                        <button style="background-color: #00a1b2;" class="btn  dropdown-toggle"
-                                                data-toggle="dropdown"><span style="color: white;"
-                                                                             class="caret">Oeffentlich</span></button>
-                                        <ul class="dropdown-menu">
-                                            <li><a id="public" class="dropdown-item" href="#"><i
-                                                    class="fa fa-globe"></i>
-                                                Freunde</a>
-                                            </li>
-                                            <li><a id="privat" class="dropdown-item" href="#"><i
-                                                    class="fa fa-user"></i>
-                                                Privat</a></li>
-                                        </ul>
-                                    </div>
                                 </div>
                             </div>
                         </div>
         </form>
         <!-- Post /////-->
 
-        <!--- \\\\\\\Post-->
-        <div class="card gedf-card">
-            <div class="card-header">
-                <div class="d-flex justify-content-between align-items-center">
+        <c:forEach items="${beitrags}" var="b">
+            <div class="card gedf-card">
+                <div class="card-header">
                     <div class="d-flex justify-content-between align-items-center">
-                        <div class="mr-2">
-                            <img class="rounded-circle" width="30" height="30" src="profile.png" alt="">
-                        </div>
-                        <div class="ml-2">
-                            <div class="h5 m-0">Mustermann</div>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="mr-2">
+                                <img class="rounded-circle" width="45" src="img/profile.png">
+                            </div>
+                            <div class="ml-2">
+                                <p id="user-info-in-beitrag">${b.vorname} ${b.nachname}</p>
 
-                        </div>
-                    </div>
-                    <div>
-                        <div class="dropdown">
-                            <button class="btn btn-link dropdown-toggle" type="button" id="gedf-drop1"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i style="color: #00a1b2;" class="fa fa-ellipsis-h"></i>
-                            </button>
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="gedf-drop1">
-                                <div class="h6 dropdown-header">Optionen</div>
-                                <a class="dropdown-item" href="#">Freunde
-                                    <i class="fas fa-globe"></i>
-                                </a>
-                                <a class="dropdown-item" href="#">Privat
-                                    <i class="fas fa-user"></i>
-                                </a>
                             </div>
                         </div>
+                        <div>
+                        </div>
                     </div>
+
                 </div>
+                <div class="card-body body2">
 
+                    <div class="beitragZeit text-muted h7 mb-2"></div>
+                    <p class="card-text">
+                    </p>
+                </div>
             </div>
-            <div class="card-body">
-                <div class="text-muted h7 mb-2"><i class="fa fa-clock-o"></i>10 min ago</div>
-
-
-                <p class="card-text">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo recusandae nulla rem eos
-                    ipsa praesentium esse magnam nemo dolor
-                    sequi fuga quia quaerat cum, obcaecati hic, molestias minima iste voluptates.
-                </p>
-            </div>
-            <div class="card-footer">
-                <textarea class="form-control" placeholder="Kommentar schriben..." rows="3"></textarea>
-                <br>
-                <button style="background-color: #00a1b2;" type="button" class="btn btn-info  pull-right">
-                    Kommentieren
-                </button>
-                <div class="clearfix"></div>
-
-            </div>
-        </div>
+        </c:forEach>
         <!-- Post /////-->
 
-
-        <!--- \\\\\\\Post-->
-        <div class="card gedf-card">
-            <div class="card-header">
-                <div class="d-flex justify-content-between align-items-center">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div class="mr-2">
-                            <img class="rounded-circle" width="30" height="30" src="profile.png" alt="">
-                        </div>
-                        <div class="ml-2">
-                            <div class="h5 m-0">Mustermann_2</div>
-
-                        </div>
-                    </div>
-                    <div>
-                        <div class="dropdown">
-                            <button class="btn btn-link dropdown-toggle" type="button" id="gedf-drop2"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i style="color: #00a1b2;" class="fa fa-ellipsis-h"></i>
-                            </button>
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="gedf-drop2">
-                                <div class="h6 dropdown-header">Optionen</div>
-
-                                <a class="dropdown-item" href="#">Freunde
-                                    <i class="fas fa-globe"></i>
-                                </a>
-                                <a class="dropdown-item" href="#">Privat
-                                    <i class="fas fa-user"></i>
-                                </a>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-            <div class="card-body">
-                <div class="text-muted h7 mb-2"><i class="fa fa-clock-o"></i>10 min ago</div>
-
-
-                <p class="card-text">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo recusandae nulla rem eos
-                    ipsa praesentium esse magnam nemo dolor
-                    sequi fuga quia quaerat cum, obcaecati hic, molestias minima iste voluptates.
-                </p>
-            </div>
-            <div class="card-footer">
-                <textarea class="form-control" placeholder="Kommentar schriben..." rows="3"></textarea>
-                <br>
-                <button style="background-color: #00a1b2;" type="button" class="btn btn-info   pull-right">
-                    Kommentieren
-                </button>
-                <div class="clearfix"></div>
-
-            </div>
-        </div>
-        <div class="card gedf-card">
-            <div class="card-header">
-                <div class="d-flex justify-content-between align-items-center">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div class="mr-2">
-                            <img class="rounded-circle" width="30" height="30" src="profile.png" alt="">
-                        </div>
-                        <div class="ml-2">
-                            <div class="h5 m-0">Mustermann_3</div>
-
-                        </div>
-                    </div>
-                    <div>
-                        <div class="dropdown">
-                            <button class="btn btn-link dropdown-toggle" type="button" id="gedf-drop3"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i style="color: #00a1b2;" class="fa fa-ellipsis-h"></i>
-                            </button>
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="gedf-drop3">
-                                <div class="h6 dropdown-header">Optionen</div>
-
-                                <a class="dropdown-item" href="#">Freunde
-                                    <i class="fas fa-globe"></i>
-                                </a>
-                                <a class="dropdown-item" href="#">Privat
-                                    <i class="fas fa-user"></i>
-                                </a>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-            <div class="card-body">
-                <div class="text-muted h7 mb-2"><i class="fa fa-clock-o"></i>10 min ago</div>
-
-
-                <p class="card-text">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo recusandae nulla rem eos
-                    ipsa praesentium esse magnam nemo dolor
-                    sequi fuga quia quaerat cum, obcaecati hic, molestias minima iste voluptates.
-                </p>
-            </div>
-            <div class="card-footer">
-                <textarea class="form-control" placeholder="Kommentar schriben..." rows="3"></textarea>
-                <br>
-                <button style="background-color: #00a1b2;" type="button" class="btn btn-info   pull-right">
-                    kommentieren
-                </button>
-                <div class="clearfix"></div>
-
-            </div>
-        </div>
-
-
-</div>
-</div>
-</div>
-
-</main>
-<!-- page-content" -->
+    </main>
+    <!-- page-content" -->
 </div>
 <!-- page-wrapper -->
 <script>
@@ -1041,39 +876,58 @@
     });
 
     $(document).ready(function () {
+        var url_string = window.location.href;
+        var url = new URL(url_string);
+        var uid = url.searchParams.get("uid");
+
+        $.ajax({
+            type: "post",
+            data: {"uid": uid},
+            url: "/identifyUser",
+            success: function (data) {
+                $(".user-name").text(data);
+
+            }
+        });
+
         var gLength = $(".gruppe").length;
 
         $("#groupLength").text(gLength);
 
         setInterval(function () {
-            var url_string = window.location.href; //window.location.href
-            var url = new URL(url_string);
-            var uid = url.searchParams.get("uid");
+            getNotifications();
+        }, 15000);
+    });
 
-            $.ajax({
-                type: "post",
-                data: {"uid": uid},
-                url: "/notifications",
-                success: function (data) {
-                    console.log(data.length)
 
-                    var notifCounter = data.length;
+    function getNotifications() {
+        var url_string = window.location.href; //window.location.href
+        var url = new URL(url_string);
+        var uid = url.searchParams.get("uid");
 
-                    $("#notification-counter").text(notifCounter);
+        $.ajax({
+            type: "post",
+            data: {"uid": uid},
+            url: "/notifications",
+            success: function (data) {
+                console.log(data.length)
 
-                    $(".modal-body").empty();
-                    for (var i = 0; i < notifCounter; i++) {
-                        if (data[i].includes("Freundschaft")) {
-                            $(".modal-body").append("<p class='notification-text'><i class=\"far fa-bell fa-2x\"></i> " + data[i] + "</p> <button onclick='annehmeEinladung(this)' value='" + 123 + "' type='button' class='annehmeBtn btn btn-primary'>Annehmen</button>");
+                var notifCounter = data.length;
 
-                        } else {
-                            $(".modal-body").append("<p class='notification-text'><i class=\"far fa-bell fa-2x\"></i> " + data[i] + "</p>");
-                        }
+                $("#notification-counter").text(notifCounter);
+
+                $(".modal-body").empty();
+                for (var i = 0; i < notifCounter; i++) {
+                    if (data[i].includes("Freundschaft")) {
+                        $(".modal-body").append("<p class='notification-text'><i class=\"far fa-bell fa-2x\"></i> " + data[i] + "</p> <button onclick='annehmeEinladung(this)' value='" + 123 + "' type='button' class='annehmeBtn btn btn-primary'>Annehmen</button> <button value='" + 123 + "' type='button' class='ablehnenBtn btn btn-danger'>Ablehnen</button>");
+
+                    } else {
+                        $(".modal-body").append("<p class='notification-text'><i class=\"far fa-bell fa-2x\"></i> " + data[i] + "</p>");
                     }
                 }
-            });
-        }, 5000);
-    });
+            }
+        });
+    }
 
     function annehmeEinladung(btn) {
         alert("angenommen")

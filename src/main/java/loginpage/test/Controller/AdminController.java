@@ -215,6 +215,7 @@ public class AdminController {
             result.add(beitrag.getBeitragsInhalt());
         }
 
+        System.out.println(result);
 
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }

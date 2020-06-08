@@ -130,7 +130,7 @@
 
 
                 <a href="/doLogout">
-                    <i class="fa fa-power-off"></i>
+                    <i class="fas fa-sign-out-alt"></i>
                 </a>
             </div>
         </div>

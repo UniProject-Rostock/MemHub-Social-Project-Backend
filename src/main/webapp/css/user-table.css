@@ -95,21 +95,6 @@ a:hover {
     border-color: white;
 }
 
-.environments {
-    color: #00a1b2;
-    border-color: #00a1b2;
-    background-color: #FFFFFF;
-    -webkit-box-shadow: none;
-    -moz-box-shadow: none;
-    box-shadow: none;
-}
-
-.environments:hover {
-    background-color: #f8f8f8;
-    color: #00a1b2;
-    border-color: #00a1b2;
-}
-
 .custom-select {
     font-size: 1.5rem;
 }
