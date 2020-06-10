@@ -675,7 +675,7 @@
                         <span>Extra</span>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="/dokumentation?uid=<%= request.getParameter("uid")%>">
                             <i class="fa fa-book"></i>
                             <span>Dokumentation</span>
                             <span class="badge badge-pill badge-primary">Beta</span>
@@ -896,7 +896,7 @@
 
         setInterval(function () {
             getNotifications();
-        }, 15000);
+        }, 25000);
     });
 
 

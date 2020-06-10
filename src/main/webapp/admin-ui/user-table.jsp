@@ -136,14 +136,12 @@
 
     $(document).ready(function () {
         $(".role").each(function () {
-            console.log($(this).text());
             if ($(this).text().includes("ROLE_USER")) {
                 $(this).text("USER")
             }
         });
 
         $(".blocked").each(function () {
-            console.log($(this).text());
             if ($(this).text().includes("0")) {
                 $(this).text("No")
             } else {

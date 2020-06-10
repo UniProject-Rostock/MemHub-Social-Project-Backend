@@ -44,6 +44,9 @@ public class UserController {
     FreundschaftRepo freundschaftRepo;
 
     @Autowired
+    KontaktRepo kontaktRepo;
+
+    @Autowired
     EmailService emailService;
 
     int id = LoginController.id;
@@ -66,8 +69,6 @@ public class UserController {
         List<User> usersInfosInBeitrag = userRepo.getAllPostsFromUserInUser(uid);
 
         model.addAttribute("userBeitrag", usersInfosInBeitrag);
-
-        System.out.println(postsOfUser);
 
         return "user-ui/user-menu.jsp";
     }
@@ -141,7 +142,6 @@ public class UserController {
 
         User user = userRepo.findByUid(uid);
 
-
         Notification notification = new Notification();
         notification.setHeader("Gruppenanfrage");
         notification.setInhalt(user.getVorname() + " " + user.getNachname() + " " + "hat Sie zu der Gruppe" + " " + groupName + " hinzugefuegt");
@@ -162,7 +162,6 @@ public class UserController {
         int uid = Integer.parseInt(request.getParameter("uid"));
         int fid = Integer.parseInt(request.getParameter("fid"));
 
-
         User user = userRepo.findByUid(uid);
 
         User friend = userRepo.findByUid(fid);
@@ -180,7 +179,6 @@ public class UserController {
         freundschaft.setStatus("Gesendet");
         freundschaftRepo.save(freundschaft);
 
-        System.out.println("hell oldu");
         return ResponseEntity.status(HttpStatus.OK).body("gesendet");
     }
 
@@ -191,7 +189,6 @@ public class UserController {
 
         int uid = Integer.parseInt(request.getParameter("uid"));
         int fid = Integer.parseInt(request.getParameter("fid"));
-
 
         Freundschaft freundschaft = freundschaftRepo.checkFreundschaftsStatus(uid, fid);
 
@@ -223,9 +220,7 @@ public class UserController {
         User registeredUser = userRepo.findByEmail(email);
         Date date = new Date();
 
-        System.out.println(registeredUser);
         if (registeredUser != null) {
-            System.out.println("movcud user");
             registeredUser.setDeleted(0);
             registeredUser.setBlocked(0);
             registeredUser.setGeschlecht(geschlecht);
@@ -234,11 +229,9 @@ public class UserController {
             registeredUser.setVorname(vorname);
             registeredUser.setPassword(hashedPassword);
             registeredUser.setGeburtsDatum(geburtsDatum);
-            System.out.println("current date: " + date);
             registeredUser.setBeigetreten(date);
             userRepo.save(registeredUser);
         } else {
-            System.out.println("movcud olmayan user");
             User user = new User(vorname, nachname, hashedPassword, email, geburtsDatum, geschlecht);
             user.setBlocked(0);
             user.setDeleted(0);
@@ -261,7 +254,6 @@ public class UserController {
                            @RequestParam("wohnort") String wohnort,
                            @RequestParam("beziehungsstatus") String beziehunsstatus,
                            @RequestParam("uid") int uid) {
-
 
         User user = userRepo.findByUid(uid);
 
@@ -307,10 +299,13 @@ public class UserController {
                                     @RequestParam("email") String email,
                                     @RequestParam("nachricht") String nachricht) {
 
-        System.out.println(vorname);
-        System.out.println(nachname);
-        System.out.println(email);
-        System.out.println(nachricht);
+        Kontakt kontakt = new Kontakt();
+        kontakt.setVorname(vorname);
+        kontakt.setNachname(nachname);
+        kontakt.setEmail(email);
+        kontakt.setText(nachricht);
+
+        kontaktRepo.save(kontakt);
 
         return "redirect:/successContact";
     }
@@ -322,7 +317,6 @@ public class UserController {
 
         return "login-ui/contact-us_user.jsp";
     }
-
 
     @RequestMapping("/deleteYourProfile")
     @PreAuthorize("hasRole('ROLE_USER')")
@@ -369,13 +363,11 @@ public class UserController {
         return "redirect:/profile?uid=" + uid;
     }
 
-
     @RequestMapping("/startseite")
     @PreAuthorize("hasRole('ROLE_USER')")
     public String startSeite(@RequestParam("uid") int uid, Model model) {
 
         User user = userRepo.findByUid(uid);
-
 
         List<Gruppe> gruppen = gruppeRepo.groupsOfUser(uid);
         model.addAttribute("gruppen", gruppen);
@@ -403,8 +395,8 @@ public class UserController {
 
     @PostMapping("/forgotpassword")
     public String forgotPassword(@RequestParam("forgotemail") String email, HttpServletRequest request) {
-        User user = userRepo.findByEmail(email);
 
+        User user = userRepo.findByEmail(email);
 
         if (user != null) {
             user.setToken(RandomStringUtils.randomAlphanumeric(17).toUpperCase());
@@ -454,5 +446,11 @@ public class UserController {
         model.addAttribute("passwordResetSuccess", "true");
 
         return "login-ui/login.jsp";
+    }
+
+    @RequestMapping("/dokumentation")
+    public String doku() {
+
+        return "user-ui/dokumentation.jsp";
     }
 }

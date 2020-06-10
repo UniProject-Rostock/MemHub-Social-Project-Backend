@@ -113,14 +113,12 @@
 
     $(document).ready(function () {
         $(".role").each(function () {
-            console.log($(this).text());
             if ($(this).text().includes("ROLE_ADMIN")) {
                 $(this).text("ADMIN")
             }
         });
 
         $(".blocked").each(function () {
-            console.log($(this).text());
             if ($(this).text().includes("0")) {
                 $(this).text("No")
             } else {

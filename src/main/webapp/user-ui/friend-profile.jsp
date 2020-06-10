@@ -415,7 +415,6 @@
             success: function (data) {
 
                 if (data === "gesendet") {
-                    alert("getdi")
                     $(".pull-right").empty().append("<button disabled id=\"sent-friendshipBtn\" type=\"button\" class=\"btn btn-primary\">Freundschaftsanfrage gesendet <i class=\"fas fa-user-check\"></i></button>\n");
                 }
             }

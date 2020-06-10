@@ -35,8 +35,6 @@
     <script src="js/login.js"></script>
     <script src="https://kit.fontawesome.com/258052aeff.js"
             crossorigin="anonymous"></script>
-
-
 </head>
 
 <body>
@@ -256,9 +254,6 @@
     </div>
 </div>
 
-
-<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-
 <script>
 
     function checkEmailExist() {
@@ -310,7 +305,6 @@
     $('#registration-form').submit(validateForm);
 
 </script>
-
 
 </body>
 

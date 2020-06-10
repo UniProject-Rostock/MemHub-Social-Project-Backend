@@ -39,10 +39,12 @@ public class AdminController {
     @Autowired
     BeitragRepo beitragRepo;
 
+    @Autowired
+    EmailService emailService;
+
     @RequestMapping("/users")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String getAllUsers(Model model) {
-
 
         List<User> users = userRepo.getOnlyUsers(2);
         model.addAttribute("users", users);
@@ -63,8 +65,6 @@ public class AdminController {
 
         User user = userRepo.findByUid(uid);
 
-        System.out.println(uid);
-
         user.setBlocked(1);
         userRepo.save(user);
 
@@ -84,8 +84,6 @@ public class AdminController {
 
         User user = userRepo.findByUid(uid);
 
-        System.out.println(uid);
-
         user.setBlocked(0);
         userRepo.save(user);
 
@@ -104,8 +102,6 @@ public class AdminController {
 
         model.addAttribute("user", userList);
 
-        System.out.println(user);
-
         return "admin-ui/admin-menu.jsp";
     }
 
@@ -113,7 +109,6 @@ public class AdminController {
     @RequestMapping("/contactUser")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String contactUserPage(@RequestParam("uid") int uid) {
-
 
         return "admin-ui/contact-user.jsp";
     }
@@ -179,9 +174,6 @@ public class AdminController {
         return "redirect:/administrators";
     }
 
-    @Autowired
-    EmailService emailService;
-
     @RequestMapping("/adminContactsUser")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String adminContactsUser(@RequestParam("uid") int uid, @RequestParam("emailInhalt") String inhalt, HttpServletRequest request) {
@@ -194,8 +186,6 @@ public class AdminController {
             passwordResetEmail.setSubject("MemoHub Kontakt Team");
             passwordResetEmail.setText(inhalt);
             emailService.sendEmail(passwordResetEmail);
-        } else {
-            System.out.println("not found");
         }
 
         return "redirect:/users";
@@ -214,8 +204,6 @@ public class AdminController {
         for (Beitrag beitrag : beitrags) {
             result.add(beitrag.getBeitragsInhalt());
         }
-
-        System.out.println(result);
 
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }

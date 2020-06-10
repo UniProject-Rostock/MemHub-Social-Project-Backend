@@ -149,24 +149,18 @@
             data: {"uid": uid},
             url: "/friends",
             success: function (data) {
-                console.log(data.length);
-
                 for (var i = 0; i < data.length; i = i + 2) {
                     $("#friendsList").append("<div class='fullFriendInfo container'><div class='row'><div class='col-sm'><p style='text-align: left'>" + data[i] + "</p></div> <div class='col-sm'><button onclick='sendeEinladung(this)' value='" + data[i + 1] + "' type='button' class='einladungBtn btn btn-primary'> <i class=\"fas fa-plus\"></i> </button></div></div></div>")
                 }
             }
         });
-
-
     });
-
 
     function sendeEinladung(btn) {
         var url_string = window.location.href; //window.location.href
         var url = new URL(url_string);
         var uid = url.searchParams.get("uid");
         var groupName = url.searchParams.get("group-name");
-        console.log(groupName);
         var friendId = $(btn).val();
         var gid = $("#gid").val();
 

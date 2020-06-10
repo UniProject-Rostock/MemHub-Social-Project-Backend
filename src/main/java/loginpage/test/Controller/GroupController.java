@@ -33,10 +33,8 @@ public class GroupController {
     @PreAuthorize("hasRole('ROLE_USER')")
     public String createGroupPage(@RequestParam("uid") int uid) {
 
-
         return "user-ui/create-group.jsp";
     }
-
 
     @RequestMapping("/addFriendsToGroup")
     @PreAuthorize("hasRole('ROLE_USER')")
@@ -59,19 +57,14 @@ public class GroupController {
         return "user-ui/add-friends-to-group.jsp";
     }
 
-
     @RequestMapping("/addGroup")
     @PreAuthorize("hasRole('ROLE_USER')")
     public String createGroup(@RequestParam("uid") int uid,
                               @RequestParam("gid") int gid, Model model) {
 
-
-
         List<User> members = userRepo.getMembersOfGroup(gid);
 
-        System.out.println(members);
         model.addAttribute("members", members);
-
 
         return "redirect:/group?gid=" + gid + "&uid=" + uid;
     }
@@ -80,9 +73,7 @@ public class GroupController {
     @PreAuthorize("hasRole('ROLE_USER')")
     public String groupPage(@RequestParam("gid") int gid, @RequestParam("uid") int uid, Model model) {
 
-
         User user = userRepo.findByUid(uid);
-
 
         List<Gruppe> gruppen = gruppeRepo.groupsOfUser(uid);
 
@@ -90,11 +81,8 @@ public class GroupController {
 
         List<User> members = userRepo.getMembersOfGroup(gid);
 
-        System.out.println(members);
         model.addAttribute("members", members);
 
         return "user-ui/group-page.jsp";
     }
-
-
 }

@@ -105,7 +105,6 @@
                         <a href="#">
                             <i class="fa fa-users"></i>
                             <span>Gruppen</span>
-                            <span id="groupLength" class="badge badge-pill badge-danger"></span>
                         </a>
                         <div class="sidebar-submenu">
                             <ul>
@@ -451,13 +450,6 @@
         $(this).parents('.btn-group').find('.dropdown-toggle').html(selText + ' <span class="caret"></span>');
 
     });
-
-    $(document).ready(function() {
-        var gLength = $(".gruppe").length;
-
-        $("#groupLength").text(gLength);
-    })
-
 
 </script>
 </body>

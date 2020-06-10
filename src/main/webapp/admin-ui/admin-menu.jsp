@@ -129,8 +129,6 @@
 </div>
 <!-- page-wrapper -->
 
-
-
 <script type="text/javascript">
 
     $(document).ready( function() {
